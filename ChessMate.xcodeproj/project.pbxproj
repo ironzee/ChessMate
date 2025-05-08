@@ -7,18 +7,122 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180A16E72DC2016F003D8D6F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16E62DC2016F003D8D6F /* AuthManager.swift */; };
+		180A16E92DC20330003D8D6F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16E82DC20330003D8D6F /* LoginView.swift */; };
+		180A16ED2DC20653003D8D6F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16EC2DC20653003D8D6F /* UserManager.swift */; };
+		180A16EF2DC20A19003D8D6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 180A16EE2DC20A19003D8D6F /* GoogleService-Info.plist */; };
+		180A16F32DC20D6E003D8D6F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16F22DC20D6E003D8D6F /* SignUpView.swift */; };
 		1843630D2DBDBF0000F7FDBD /* ChessMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843630C2DBDBF0000F7FDBD /* ChessMateApp.swift */; };
-		1843630F2DBDBF0000F7FDBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843630E2DBDBF0000F7FDBD /* ContentView.swift */; };
 		184363112DBDBF0100F7FDBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184363102DBDBF0100F7FDBD /* Assets.xcassets */; };
 		184363142DBDBF0100F7FDBD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184363132DBDBF0100F7FDBD /* Preview Assets.xcassets */; };
+		184363202DBDBF5800F7FDBD /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843631F2DBDBF5800F7FDBD /* Colors.swift */; };
+		184363222DBDBF6A00F7FDBD /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363212DBDBF6A00F7FDBD /* WelcomeView.swift */; };
+		184363242DBDC16C00F7FDBD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363232DBDC16C00F7FDBD /* OnboardingView.swift */; };
+		184363262DBDC18F00F7FDBD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363252DBDC18F00F7FDBD /* HomeView.swift */; };
+		184363282DBDC1E100F7FDBD /* MatchmakingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363272DBDC1E100F7FDBD /* MatchmakingView.swift */; };
+		1843632A2DBDC22A00F7FDBD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363292DBDC22A00F7FDBD /* ProfileView.swift */; };
+		1843632C2DBDC24E00F7FDBD /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843632B2DBDC24E00F7FDBD /* ChatView.swift */; };
+		1843632E2DBDC26C00F7FDBD /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */; };
+		184363302DBDC28300F7FDBD /* SubmitResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843632F2DBDC28300F7FDBD /* SubmitResultView.swift */; };
+		184363322DBDC2EE00F7FDBD /* CafeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363312DBDC2EE00F7FDBD /* CafeFinderView.swift */; };
+		184363342DBDC2FA00F7FDBD /* MatchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363332DBDC2FA00F7FDBD /* MatchHistoryView.swift */; };
+		184363362DBDC37D00F7FDBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363352DBDC37D00F7FDBD /* ContentView.swift */; };
+		184363382DBDC38C00F7FDBD /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363372DBDC38C00F7FDBD /* AppScreen.swift */; };
+		1843633A2DBDC4A900F7FDBD /* NotificationCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */; };
+		1843633C2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */; };
+		1843633E2DBDC4BE00F7FDBD /* CafeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */; };
+		184363402DBDC4C800F7FDBD /* GhostModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */; };
+		184E6F152DCBC9CC00CE3057 /* GuestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */; };
+		184E6F172DCBF96500CE3057 /* ChessMatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */; };
+		184E6F192DCBFBA500CE3057 /* MatchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F182DCBFBA500CE3057 /* MatchRequestModel.swift */; };
+		184E6F1B2DCBFBD700CE3057 /* MatchRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1A2DCBFBD700CE3057 /* MatchRequestViewModel.swift */; };
+		184E6F1D2DCBFBFA00CE3057 /* MatchRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */; };
+		184E6F1F2DCBFC2000CE3057 /* MatchRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */; };
+		184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */; };
+		1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DC9E2DC5BE8400D14B94 /* UserModel.swift */; };
+		1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */; };
+		1860DCA52DC5D55A00D14B94 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA42DC5D55A00D14B94 /* Player.swift */; };
+		188C3EDC2DC5E2FD000C92FA /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3EDB2DC5E2FD000C92FA /* ChatModel.swift */; };
+		188C3EE02DC5E5D0000C92FA /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3EDF2DC5E5D0000C92FA /* MessageModel.swift */; };
+		188C3F132DC5ED1A000C92FA /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F122DC5ED1A000C92FA /* ChatManager.swift */; };
+		188C3F152DC5ED59000C92FA /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F142DC5ED59000C92FA /* ChatListView.swift */; };
+		188C3F172DC5EF31000C92FA /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F162DC5EF31000C92FA /* ChatDetailView.swift */; };
+		188C3F192DC5F7AE000C92FA /* ChatDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F182DC5F7AE000C92FA /* ChatDetailViewModel.swift */; };
+		188C3F1B2DC5F80D000C92FA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F1A2DC5F80D000C92FA /* Message.swift */; };
+		188C3F1D2DC60AA4000C92FA /* ChatSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */; };
+		188C3F1F2DC60AC7000C92FA /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F1E2DC60AC7000C92FA /* ChatListViewModel.swift */; };
+		188C3F222DC6CBC1000C92FA /* StartupFixManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F212DC6CBC1000C92FA /* StartupFixManager.swift */; };
+		188C3F242DC6CEF9000C92FA /* ChessMateAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F232DC6CEF9000C92FA /* ChessMateAppDelegate.swift */; };
+		188C3F262DC70E27000C92FA /* CafeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F252DC70E27000C92FA /* CafeModel.swift */; };
+		188C3F282DC7197D000C92FA /* LeaderboardPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */; };
+		188C3F2A2DC726B0000C92FA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F292DC726B0000C92FA /* SettingsView.swift */; };
+		188C3F2C2DC728CB000C92FA /* ProfilePhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F2B2DC728CB000C92FA /* ProfilePhotosView.swift */; };
+		188C3F2E2DC72912000C92FA /* EditPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F2D2DC72912000C92FA /* EditPhotosView.swift */; };
+		188C3F302DC72921000C92FA /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */; };
+		188C3F332DC84471000C92FA /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 188C3F322DC84471000C92FA /* SDWebImageSwiftUI */; };
+		188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F342DC84A81000C92FA /* MatchProfileCard.swift */; };
+		4F264B1CB03FDC9B483F7E78 /* Pods_ChessMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180A16E62DC2016F003D8D6F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		180A16E82DC20330003D8D6F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		180A16EC2DC20653003D8D6F /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		180A16EE2DC20A19003D8D6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		180A16F22DC20D6E003D8D6F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		18101DA62DC22F5600FD220B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		184363092DBDBF0000F7FDBD /* ChessMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1843630C2DBDBF0000F7FDBD /* ChessMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMateApp.swift; sourceTree = "<group>"; };
-		1843630E2DBDBF0000F7FDBD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		184363102DBDBF0100F7FDBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		184363132DBDBF0100F7FDBD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1843631F2DBDBF5800F7FDBD /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		184363212DBDBF6A00F7FDBD /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		184363232DBDC16C00F7FDBD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		184363252DBDC18F00F7FDBD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		184363272DBDC1E100F7FDBD /* MatchmakingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingView.swift; sourceTree = "<group>"; };
+		184363292DBDC22A00F7FDBD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		1843632B2DBDC24E00F7FDBD /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		1843632F2DBDC28300F7FDBD /* SubmitResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitResultView.swift; sourceTree = "<group>"; };
+		184363312DBDC2EE00F7FDBD /* CafeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeFinderView.swift; sourceTree = "<group>"; };
+		184363332DBDC2FA00F7FDBD /* MatchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchHistoryView.swift; sourceTree = "<group>"; };
+		184363352DBDC37D00F7FDBD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		184363372DBDC38C00F7FDBD /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
+		184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterView.swift; sourceTree = "<group>"; };
+		1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDiscoveryView.swift; sourceTree = "<group>"; };
+		1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailsView.swift; sourceTree = "<group>"; };
+		1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostModeView.swift; sourceTree = "<group>"; };
+		184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestGenerator.swift; sourceTree = "<group>"; };
+		184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMatchRequest.swift; sourceTree = "<group>"; };
+		184E6F182DCBFBA500CE3057 /* MatchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestModel.swift; sourceTree = "<group>"; };
+		184E6F1A2DCBFBD700CE3057 /* MatchRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestViewModel.swift; sourceTree = "<group>"; };
+		184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestsView.swift; sourceTree = "<group>"; };
+		184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestSender.swift; sourceTree = "<group>"; };
+		184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosViewModel.swift; sourceTree = "<group>"; };
+		1860DC9E2DC5BE8400D14B94 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingViewModel.swift; sourceTree = "<group>"; };
+		1860DCA42DC5D55A00D14B94 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		188C3EDB2DC5E2FD000C92FA /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		188C3EDF2DC5E5D0000C92FA /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		188C3F122DC5ED1A000C92FA /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		188C3F142DC5ED59000C92FA /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		188C3F162DC5EF31000C92FA /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
+		188C3F182DC5F7AE000C92FA /* ChatDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailViewModel.swift; sourceTree = "<group>"; };
+		188C3F1A2DC5F80D000C92FA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSummary.swift; sourceTree = "<group>"; };
+		188C3F1E2DC60AC7000C92FA /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
+		188C3F212DC6CBC1000C92FA /* StartupFixManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupFixManager.swift; sourceTree = "<group>"; };
+		188C3F232DC6CEF9000C92FA /* ChessMateAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMateAppDelegate.swift; sourceTree = "<group>"; };
+		188C3F252DC70E27000C92FA /* CafeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeModel.swift; sourceTree = "<group>"; };
+		188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPlayer.swift; sourceTree = "<group>"; };
+		188C3F292DC726B0000C92FA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		188C3F2B2DC728CB000C92FA /* ProfilePhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosView.swift; sourceTree = "<group>"; };
+		188C3F2D2DC72912000C92FA /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
+		188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		188C3F342DC84A81000C92FA /* MatchProfileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchProfileCard.swift; sourceTree = "<group>"; };
+		42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessMate.debug.xcconfig"; path = "Target Support Files/Pods-ChessMate/Pods-ChessMate.debug.xcconfig"; sourceTree = "<group>"; };
+		97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChessMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessMate.release.xcconfig"; path = "Target Support Files/Pods-ChessMate/Pods-ChessMate.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188C3F332DC84471000C92FA /* SDWebImageSwiftUI in Frameworks */,
+				4F264B1CB03FDC9B483F7E78 /* Pods_ChessMate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +143,8 @@
 			children = (
 				1843630B2DBDBF0000F7FDBD /* ChessMate */,
 				1843630A2DBDBF0000F7FDBD /* Products */,
+				5F9BC59E520C2B3DE97CBE47 /* Pods */,
+				F5FC550B41820B631DF0C11B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +159,13 @@
 		1843630B2DBDBF0000F7FDBD /* ChessMate */ = {
 			isa = PBXGroup;
 			children = (
+				18101DA62DC22F5600FD220B /* Info.plist */,
+				1843631E2DBDBF4800F7FDBD /* Colors+Assets */,
+				1843631D2DBDBF3600F7FDBD /* Utilities */,
+				1843631C2DBDBF2800F7FDBD /* ViewModels */,
+				1843631B2DBDBF1F00F7FDBD /* Views */,
+				1843631A2DBDBF1500F7FDBD /* Models */,
 				1843630C2DBDBF0000F7FDBD /* ChessMateApp.swift */,
-				1843630E2DBDBF0000F7FDBD /* ContentView.swift */,
 				184363102DBDBF0100F7FDBD /* Assets.xcassets */,
 				184363122DBDBF0100F7FDBD /* Preview Content */,
 			);
@@ -67,6 +180,108 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1843631A2DBDBF1500F7FDBD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1843631B2DBDBF1F00F7FDBD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				184363212DBDBF6A00F7FDBD /* WelcomeView.swift */,
+				184363232DBDC16C00F7FDBD /* OnboardingView.swift */,
+				184363252DBDC18F00F7FDBD /* HomeView.swift */,
+				188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */,
+				188C3F252DC70E27000C92FA /* CafeModel.swift */,
+				184363272DBDC1E100F7FDBD /* MatchmakingView.swift */,
+				184363292DBDC22A00F7FDBD /* ProfileView.swift */,
+				1843632B2DBDC24E00F7FDBD /* ChatView.swift */,
+				1860DCA42DC5D55A00D14B94 /* Player.swift */,
+				1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */,
+				1843632F2DBDC28300F7FDBD /* SubmitResultView.swift */,
+				184363312DBDC2EE00F7FDBD /* CafeFinderView.swift */,
+				184363332DBDC2FA00F7FDBD /* MatchHistoryView.swift */,
+				1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */,
+				188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */,
+				188C3F1E2DC60AC7000C92FA /* ChatListViewModel.swift */,
+				184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */,
+				1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */,
+				1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */,
+				1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */,
+				180A16E82DC20330003D8D6F /* LoginView.swift */,
+				180A16F22DC20D6E003D8D6F /* SignUpView.swift */,
+				1860DC9E2DC5BE8400D14B94 /* UserModel.swift */,
+				188C3EDB2DC5E2FD000C92FA /* ChatModel.swift */,
+				188C3EDF2DC5E5D0000C92FA /* MessageModel.swift */,
+				188C3F1A2DC5F80D000C92FA /* Message.swift */,
+				188C3F122DC5ED1A000C92FA /* ChatManager.swift */,
+				188C3F142DC5ED59000C92FA /* ChatListView.swift */,
+				188C3F162DC5EF31000C92FA /* ChatDetailView.swift */,
+				188C3F182DC5F7AE000C92FA /* ChatDetailViewModel.swift */,
+				188C3F292DC726B0000C92FA /* SettingsView.swift */,
+				188C3F2B2DC728CB000C92FA /* ProfilePhotosView.swift */,
+				188C3F2D2DC72912000C92FA /* EditPhotosView.swift */,
+				188C3F342DC84A81000C92FA /* MatchProfileCard.swift */,
+				184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */,
+				184E6F182DCBFBA500CE3057 /* MatchRequestModel.swift */,
+				184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1843631C2DBDBF2800F7FDBD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				184E6F1A2DCBFBD700CE3057 /* MatchRequestViewModel.swift */,
+				184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1843631D2DBDBF3600F7FDBD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				180A16E62DC2016F003D8D6F /* AuthManager.swift */,
+				180A16EC2DC20653003D8D6F /* UserManager.swift */,
+				180A16EE2DC20A19003D8D6F /* GoogleService-Info.plist */,
+				188C3F212DC6CBC1000C92FA /* StartupFixManager.swift */,
+				188C3F232DC6CEF9000C92FA /* ChessMateAppDelegate.swift */,
+				184363372DBDC38C00F7FDBD /* AppScreen.swift */,
+				184363352DBDC37D00F7FDBD /* ContentView.swift */,
+				188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */,
+				184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */,
+				184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		1843631E2DBDBF4800F7FDBD /* Colors+Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1843631F2DBDBF5800F7FDBD /* Colors.swift */,
+			);
+			path = "Colors+Assets";
+			sourceTree = "<group>";
+		};
+		5F9BC59E520C2B3DE97CBE47 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */,
+				9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F5FC550B41820B631DF0C11B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,15 +289,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 184363172DBDBF0100F7FDBD /* Build configuration list for PBXNativeTarget "ChessMate" */;
 			buildPhases = (
+				5880FB48326E0E00AD993618 /* [CP] Check Pods Manifest.lock */,
 				184363052DBDBF0000F7FDBD /* Sources */,
 				184363062DBDBF0000F7FDBD /* Frameworks */,
 				184363072DBDBF0000F7FDBD /* Resources */,
+				7BD9965686907EA26E49D30E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ChessMate;
+			packageProductDependencies = (
+				188C3F322DC84471000C92FA /* SDWebImageSwiftUI */,
+			);
 			productName = ChessMate;
 			productReference = 184363092DBDBF0000F7FDBD /* ChessMate.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +331,9 @@
 				Base,
 			);
 			mainGroup = 184363002DBDBF0000F7FDBD;
+			packageReferences = (
+				188C3F312DC84471000C92FA /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 1843630A2DBDBF0000F7FDBD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,18 +350,109 @@
 			files = (
 				184363142DBDBF0100F7FDBD /* Preview Assets.xcassets in Resources */,
 				184363112DBDBF0100F7FDBD /* Assets.xcassets in Resources */,
+				180A16EF2DC20A19003D8D6F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5880FB48326E0E00AD993618 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChessMate-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BD9965686907EA26E49D30E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		184363052DBDBF0000F7FDBD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1843630F2DBDBF0000F7FDBD /* ContentView.swift in Sources */,
+				1843633A2DBDC4A900F7FDBD /* NotificationCenterView.swift in Sources */,
 				1843630D2DBDBF0000F7FDBD /* ChessMateApp.swift in Sources */,
+				184363382DBDC38C00F7FDBD /* AppScreen.swift in Sources */,
+				184E6F172DCBF96500CE3057 /* ChessMatchRequest.swift in Sources */,
+				184363302DBDC28300F7FDBD /* SubmitResultView.swift in Sources */,
+				184363242DBDC16C00F7FDBD /* OnboardingView.swift in Sources */,
+				188C3F222DC6CBC1000C92FA /* StartupFixManager.swift in Sources */,
+				184363342DBDC2FA00F7FDBD /* MatchHistoryView.swift in Sources */,
+				184363222DBDBF6A00F7FDBD /* WelcomeView.swift in Sources */,
+				184363322DBDC2EE00F7FDBD /* CafeFinderView.swift in Sources */,
+				1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */,
+				188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */,
+				188C3F172DC5EF31000C92FA /* ChatDetailView.swift in Sources */,
+				1843633C2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift in Sources */,
+				188C3F2A2DC726B0000C92FA /* SettingsView.swift in Sources */,
+				180A16ED2DC20653003D8D6F /* UserManager.swift in Sources */,
+				188C3F132DC5ED1A000C92FA /* ChatManager.swift in Sources */,
+				188C3F282DC7197D000C92FA /* LeaderboardPlayer.swift in Sources */,
+				188C3F1B2DC5F80D000C92FA /* Message.swift in Sources */,
+				184E6F192DCBFBA500CE3057 /* MatchRequestModel.swift in Sources */,
+				188C3EDC2DC5E2FD000C92FA /* ChatModel.swift in Sources */,
+				184363282DBDC1E100F7FDBD /* MatchmakingView.swift in Sources */,
+				188C3F302DC72921000C92FA /* PhotoPickerView.swift in Sources */,
+				188C3F2C2DC728CB000C92FA /* ProfilePhotosView.swift in Sources */,
+				184E6F152DCBC9CC00CE3057 /* GuestGenerator.swift in Sources */,
+				188C3F2E2DC72912000C92FA /* EditPhotosView.swift in Sources */,
+				1843632E2DBDC26C00F7FDBD /* LeaderboardView.swift in Sources */,
+				1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */,
+				184363402DBDC4C800F7FDBD /* GhostModeView.swift in Sources */,
+				188C3EE02DC5E5D0000C92FA /* MessageModel.swift in Sources */,
+				188C3F1F2DC60AC7000C92FA /* ChatListViewModel.swift in Sources */,
+				184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */,
+				188C3F262DC70E27000C92FA /* CafeModel.swift in Sources */,
+				188C3F192DC5F7AE000C92FA /* ChatDetailViewModel.swift in Sources */,
+				1843633E2DBDC4BE00F7FDBD /* CafeDetailsView.swift in Sources */,
+				1843632C2DBDC24E00F7FDBD /* ChatView.swift in Sources */,
+				180A16E72DC2016F003D8D6F /* AuthManager.swift in Sources */,
+				188C3F242DC6CEF9000C92FA /* ChessMateAppDelegate.swift in Sources */,
+				184E6F1F2DCBFC2000CE3057 /* MatchRequestSender.swift in Sources */,
+				184E6F1B2DCBFBD700CE3057 /* MatchRequestViewModel.swift in Sources */,
+				184E6F1D2DCBFBFA00CE3057 /* MatchRequestsView.swift in Sources */,
+				1860DCA52DC5D55A00D14B94 /* Player.swift in Sources */,
+				180A16F32DC20D6E003D8D6F /* SignUpView.swift in Sources */,
+				184363262DBDC18F00F7FDBD /* HomeView.swift in Sources */,
+				184363362DBDC37D00F7FDBD /* ContentView.swift in Sources */,
+				188C3F1D2DC60AA4000C92FA /* ChatSummary.swift in Sources */,
+				1843632A2DBDC22A00F7FDBD /* ProfileView.swift in Sources */,
+				180A16E92DC20330003D8D6F /* LoginView.swift in Sources */,
+				188C3F152DC5ED59000C92FA /* ChatListView.swift in Sources */,
+				184363202DBDBF5800F7FDBD /* Colors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +496,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -245,7 +559,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -266,6 +580,7 @@
 		};
 		184363182DBDBF0100F7FDBD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -275,6 +590,7 @@
 				DEVELOPMENT_TEAM = DC573RYK96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChessMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -295,6 +611,7 @@
 		};
 		184363192DBDBF0100F7FDBD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -304,6 +621,7 @@
 				DEVELOPMENT_TEAM = DC573RYK96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChessMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +662,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		188C3F312DC84471000C92FA /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		188C3F322DC84471000C92FA /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 188C3F312DC84471000C92FA /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 184363012DBDBF0000F7FDBD /* Project object */;
 }
