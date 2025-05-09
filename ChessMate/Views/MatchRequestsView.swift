@@ -10,6 +10,7 @@ import SwiftUI
 struct MatchRequestsView: View {
     @StateObject private var viewModel = MatchRequestViewModel()
     let currentUserId: String
+    @State private var activeRequestForReschedule: MatchRequestModel?
 
     var body: some View {
         ScrollView {
@@ -58,9 +59,7 @@ struct MatchRequestsView: View {
                                 .cornerRadius(12)
 
                                 Button("Suggest New Time") {
-                                    let newTime = Date().addingTimeInterval(3600)
-                                    let newCafe = "Daily Grind"
-                                    viewModel.suggestNewTimeOrPlace(for: request, newTime: newTime, newCafeName: newCafe)
+                                    activeRequestForReschedule = request
                                 }
                                 .font(.headline)
                                 .foregroundColor(.espressoBrown)
@@ -68,6 +67,11 @@ struct MatchRequestsView: View {
                                 .padding(.vertical, 8)
                                 .background(Color.lightCoffeeGray)
                                 .cornerRadius(12)
+                            }
+                        }
+                        .sheet(item: $activeRequestForReschedule) { request in
+                            SuggestMatchView(request: request) { newTime, newCafe in
+                                viewModel.suggestNewTimeOrPlace(for: request, newTime: newTime, newCafeName: newCafe)
                             }
                         }
                         .padding()
@@ -81,7 +85,8 @@ struct MatchRequestsView: View {
             .padding(.top)
         }
         .onAppear {
-            viewModel.fetchRequests(for: currentUserId)
+            print("👂 Listening for match requests for: \(currentUserId)")
+            viewModel.startListening(for: currentUserId)
         }
         .background(Color.creamWhite.ignoresSafeArea())
         .navigationTitle("Match Requests")

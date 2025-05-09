@@ -14,6 +14,7 @@ class AuthManager: ObservableObject {
     @Published var userID: String?
     @Published var userProfileLoaded = false
     @Published var currentUser: UserModel?
+    static let shared = AuthManager() // 👈 Add this line
 
     private let db = Firestore.firestore()
 

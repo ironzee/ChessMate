@@ -130,8 +130,11 @@ struct HomeView: View {
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                     ForEach(cafeFinder.cafes) { cafe in
-                        CafeCard(cafe: cafe)
+                        CafeCard(cafe: cafe) {
+                            path.append(AppScreen.cafeFinderWithCafe(cafe))
+                        }
                     }
+
                 }
                 .padding(.horizontal)
 
@@ -209,37 +212,37 @@ struct MatchCard: View {
     }
 }
 
-struct CafeCard: View {
-    let cafe: Cafe       // ✅ NEW
-    var body: some View {
-        VStack(alignment: .leading) {
-            Rectangle()
-                .fill(Color.goldenTan)
-                .frame(height: 100)
-                .cornerRadius(10)
-                .overlay(
-                    Text(cafe.name)
-                        .font(.subheadline.bold())
-                        .padding(8)
-                        .foregroundColor(.espressoBrown), alignment: .bottomLeading
-                )
-
-            Text(" players")
-                .font(.caption)
-                .foregroundColor(.espressoBrown)
-
-            Text("\(String(format: "%.1f", cafe.distance)) mi")
-                .font(.caption2)
-                .foregroundColor(.espressoBrown.opacity(0.6))
-        }
-        .onTapGesture {
-            let placemark = MKPlacemark(coordinate: cafe.coordinate)
-            let mapItem = MKMapItem(placemark: placemark)
-            mapItem.name = cafe.name
-            mapItem.openInMaps(launchOptions: nil)
-        }
-    }
-}
+//struct CafeCard: View {
+//    let cafe: Cafe       // ✅ NEW
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            Rectangle()
+//                .fill(Color.goldenTan)
+//                .frame(height: 100)
+//                .cornerRadius(10)
+//                .overlay(
+//                    Text(cafe.name)
+//                        .font(.subheadline.bold())
+//                        .padding(8)
+//                        .foregroundColor(.espressoBrown), alignment: .bottomLeading
+//                )
+//
+//            Text(" players")
+//                .font(.caption)
+//                .foregroundColor(.espressoBrown)
+//
+//            Text("\(String(format: "%.1f", cafe.distance)) mi")
+//                .font(.caption2)
+//                .foregroundColor(.espressoBrown.opacity(0.6))
+//        }
+//        .onTapGesture {
+//            let placemark = MKPlacemark(coordinate: cafe.coordinate)
+//            let mapItem = MKMapItem(placemark: placemark)
+//            mapItem.name = cafe.name
+//            mapItem.openInMaps(launchOptions: nil)
+//        }
+//    }
+//}
 
 
 

@@ -57,6 +57,8 @@ struct ProfilePhotosView: View {
                                     Button(action: {
                                         withAnimation {
                                             viewModel.removePhoto(at: index)
+                                            showDeleteIcons = false
+                                            
                                         }
                                     }) {
                                         Image(systemName: "xmark.circle.fill")

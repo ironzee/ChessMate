@@ -14,6 +14,7 @@ class MatchRequestSender {
 
     func sendRequest(
         from senderId: String,
+        senderName: String, // 👈 ADD THIS
         to receiverId: String,
         chatId: String? = nil,
         cafeName: String,
@@ -27,7 +28,9 @@ class MatchRequestSender {
             "suggestedTime": suggestedTime,
             "status": "pending",
             "chatId": chatId ?? "",
-            "createdAt": FieldValue.serverTimestamp()
+            "createdAt": FieldValue.serverTimestamp(),
+            "name": senderName, // <- Add this
+
         ]
 
         db.collection("matchRequests").addDocument(data: newRequest) { error in

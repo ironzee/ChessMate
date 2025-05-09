@@ -5,11 +5,19 @@
 //  Created by Zulfiqur on 5/7/25.
 //
 
+//
+//  ProfilePhotosViewModel.swift
+//  ChessMate
+//
+//  Created by Zulfiqur on 5/7/25.
+//
+
 import Foundation
 import UIKit
-import FirebaseFirestoreInternal
+import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+
 class ProfilePhotosViewModel: ObservableObject {
     @Published var photos: [String?] = Array(repeating: nil, count: 6)
     @Published var showingPicker = false
@@ -21,6 +29,7 @@ class ProfilePhotosViewModel: ObservableObject {
         Auth.auth().currentUser?.uid
     }
 
+    // MARK: - Load Photos
     func loadUserPhotos() {
         guard let uid = currentUserId else { return }
         db.collection("users").document(uid).getDocument { snapshot, error in
@@ -35,6 +44,7 @@ class ProfilePhotosViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Add Photo
     func pickNewPhoto() {
         showingPicker = true
     }
@@ -55,17 +65,33 @@ class ProfilePhotosViewModel: ObservableObject {
                 ref.downloadURL { url, _ in
                     DispatchQueue.main.async {
                         self.photos[index] = url?.absoluteString
+                        self.saveChanges()
                     }
                 }
             }
         }
     }
 
+    // MARK: - Remove Photo
     func removePhoto(at index: Int) {
-        guard index < photos.count else { return }
+        guard index < photos.count, let uid = currentUserId else { return }
+
+        // Remove from storage
+        let ref = storage.reference().child("profile_photos/\(uid)/photo_\(index).jpg")
+        ref.delete { error in
+            if let error = error {
+                print("❌ Failed to delete photo from storage: \(error.localizedDescription)")
+            } else {
+                print("🗑️ Photo deleted from storage")
+            }
+        }
+
+        // Clear the slot and sync Firestore
         photos[index] = nil
+        saveChanges()
     }
 
+    // MARK: - Sync to Firestore
     func saveChanges() {
         guard let uid = currentUserId else { return }
         let validURLs = photos.compactMap { $0 }

@@ -18,7 +18,6 @@
 //
 //  Created by Zulfiqur on 5/4/25.
 //
-
 import SwiftUI
 import PhotosUI
 import FirebaseStorage
@@ -207,16 +206,23 @@ struct EditPhotosView: View {
                     }
 
                     authManager.loadUserProfile(uid: uid) { success in
+                        isUploading = false
                         if success {
                             isLoggedIn = true
                             path = NavigationPath()
-                            path.append(AppScreen.home)
+
+                            if authManager.currentUser?.hasCompletedOnboarding == true {
+                                path.append(AppScreen.home)
+                            } else {
+                                path.append(AppScreen.onboarding)
+                            }
+
+                            uploadStatus = "✅ Account created and photos uploaded!"
+                        } else {
+                            uploadStatus = "Failed to load user profile."
                         }
                     }
                 }
-
-                isUploading = false
-                uploadStatus = "✅ Account created and photos uploaded!"
             }
         }
     }

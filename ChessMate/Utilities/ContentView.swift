@@ -10,32 +10,46 @@
 //
 //  ContentView.swift
 //  ChessMate
-//
-//  Created by Zulfiqur on 4/26/25.
-//
+
+
 import Foundation
 import SwiftUI
 import FirebaseAuth
+
 
 struct ContentView: View {
     @State private var path = NavigationPath()
     @StateObject var authManager = AuthManager()
     @State private var isLoggedIn = false
+    @StateObject private var locationManager = LocationManager()
+    @State private var onboardingData = OnboardingData()
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
                 if isLoggedIn && authManager.userProfileLoaded {
-                    HomeView(path: $path, isLoggedIn: $isLoggedIn, authManager: authManager)
+                    if let user = authManager.currentUser {
+                        if user.hasCompletedOnboarding == true {
+                            HomeView(path: $path, isLoggedIn: $isLoggedIn, authManager: authManager)
+                        } else {
+                            OnboardingView(path: $path, userId: user.id, authManager: authManager)
+                        }
+                    } else {
+                        Text("⚠️ No user found")
+                    }
                 } else {
                     WelcomeView(path: $path, isLoggedIn: $isLoggedIn, authManager: authManager)
                 }
             }
-            .id(isLoggedIn) // 🔁 force re-evaluation when auth state changes
+            .id(isLoggedIn)
             .navigationDestination(for: AppScreen.self) { screen in
                 switch screen {
                 case .onboarding:
-                    OnboardingView(path: $path)
+                    if let user = authManager.currentUser {
+                        OnboardingView(path: $path, userId: user.id, authManager: authManager)
+                    } else {
+                        Text("⚠️ No user found for onboarding")
+                    }
 
                 case .home:
                     HomeView(path: $path, isLoggedIn: $isLoggedIn, authManager: authManager)
@@ -52,7 +66,7 @@ struct ContentView: View {
                         ChatDetailView(viewModel: ChatDetailViewModel(
                             chatId: chat.id ?? "unknown_chat_id",
                             currentUserId: user.id,
-                            currentUserName: user.name ?? "Anonymous",
+                            currentUserName: user.name,
                             otherUserId: chat.userAId == user.id ? chat.userBId : chat.userAId
                         ))
                     } else {
@@ -61,6 +75,7 @@ struct ContentView: View {
 
                 case .submitResult:
                     SubmitResultView(path: $path)
+
                 case .matchRequests:
                     if let user = authManager.currentUser {
                         MatchRequestsView(currentUserId: user.id)
@@ -78,19 +93,19 @@ struct ContentView: View {
                     LeaderboardView(path: $path)
 
                 case .cafeFinder:
-                    CafeFinderView(path: $path)
+                    CafeFinderView(path: $path, locationManager: locationManager)
 
                 case .matchHistory:
                     MatchHistoryView(path: $path)
 
                 case .notificationCenter:
-                    NotificationCenterView(path: $path)
+                    NotificationCenterView(path: $path, currentUserId: authManager.currentUser?.id ?? "")
 
                 case .tournamentDiscovery:
                     TournamentDiscoveryView(path: $path)
 
-                case .cafeDetails:
-                    CafeDetailsView(path: $path)
+                case .cafeFinderWithCafe(let cafe):
+                    CafeFinderView(path: $path, locationManager: locationManager, selectedCafe: cafe)
 
                 case .chatList:
                     if let user = authManager.currentUser {
@@ -113,7 +128,7 @@ struct ContentView: View {
                         ChatDetailView(viewModel: ChatDetailViewModel(
                             chatId: chat.id ?? "unknown_chat_id",
                             currentUserId: user.id,
-                            currentUserName: user.name ?? "Anonymous",
+                            currentUserName: user.name,
                             otherUserId: chat.userAId == user.id ? chat.userBId : chat.userAId
                         ))
                     } else {
@@ -126,17 +141,44 @@ struct ContentView: View {
                 case .editPhotosTemp(let tempData):
                     EditPhotosView(tempData: tempData, authManager: authManager, isLoggedIn: $isLoggedIn, path: $path)
 
+                // ✅ Onboarding Steps
+                case .onboardingPlayStyle:
+                    PlayStyleView(path: $path, onboardingData: $onboardingData)
 
+                case .onboardingOpeningMove:
+                    OpeningMoveView(path: $path, onboardingData: $onboardingData)
+
+                case .onboardingCafeStyle:
+                    CafeStyleView(path: $path, onboardingData: $onboardingData)
+
+                case .onboardingCoffeeOrder:
+                    CoffeeOrderView(
+                        cafeStyle: $onboardingData.cafeStyle,
+                        coffeeOrder: $onboardingData.coffeeOrder,
+                        onNext: {
+                            path.append(AppScreen.onboardingMatchSettings)
+                        })
+
+                case .onboardingMatchSettings:
+                    MatchSettingView(
+                        matchSetting: $onboardingData.matchSetting,
+                        bringBuddy: $onboardingData.bringBuddy,
+                        onNext: {
+                            path.append(AppScreen.onboardingPersona)
+                        })
+
+                case .onboardingPersona:
+                    ChessPersonaView(path: $path, onboardingData: $onboardingData, userId: authManager.currentUser?.id ?? "")
                 }
             }
         }
         .onReceive(authManager.$isSignedIn) { signedIn in
             if signedIn && authManager.userProfileLoaded {
                 self.isLoggedIn = true
-                self.path = NavigationPath() // ✅ Reset on login
+                self.path = NavigationPath()
             } else {
                 self.isLoggedIn = false
-                self.path = NavigationPath() // ✅ Reset on logout too
+                self.path = NavigationPath()
             }
         }
     }

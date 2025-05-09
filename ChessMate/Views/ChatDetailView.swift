@@ -67,7 +67,8 @@ struct ChatDetailView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
                     requestSender.sendRequest(
-                        from: viewModel.currentUserId,
+                        from: viewModel.currentUserId, 
+                        senderName: viewModel.currentUserName,
                         to: viewModel.otherUserId,
                         chatId: viewModel.chatId,
                         cafeName: "The Chess & Bean Café",

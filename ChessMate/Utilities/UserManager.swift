@@ -9,6 +9,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import FirebaseFirestoreSwift
 
+
 class UserManager {
     static let shared = UserManager()
     private let db = Firestore.firestore()
@@ -27,6 +28,21 @@ class UserManager {
         } catch {
             print("❌ Encoding error: \(error.localizedDescription)")
             completion?(error)
+        }
+    }
+
+    func saveOnboardingData(for uid: String, data: [String: Any], completion: @escaping (Bool) -> Void) {
+        db.collection("users").document(uid).setData([
+            "onboardingData": data,
+            "hasCompletedOnboarding": true
+        ], merge: true) { error in
+            if let error = error {
+                print("❌ Failed to save onboarding data: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("✅ Onboarding data saved")
+                completion(true)
+            }
         }
     }
 

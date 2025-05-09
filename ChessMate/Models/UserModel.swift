@@ -20,9 +20,10 @@ struct UserModel: Identifiable, Codable {
     let losses: Int
     let createdAt: Date?
     let photoURLs: [String]?
+    let hasCompletedOnboarding: Bool
 
     enum CodingKeys: String, CodingKey {
-        case uid, name, email, location, elo, wins, losses, createdAt, photoURLs
+        case uid, name, email, location, elo, wins, losses, createdAt, photoURLs, hasCompletedOnboarding
     }
 
     init(
@@ -34,7 +35,8 @@ struct UserModel: Identifiable, Codable {
         wins: Int = 0,
         losses: Int = 0,
         createdAt: Date? = nil,
-        photoURLs: [String] = []
+        photoURLs: [String] = [],
+        hasCompletedOnboarding: Bool = false
     ) {
         self.uid = uid
         self.name = name
@@ -45,6 +47,7 @@ struct UserModel: Identifiable, Codable {
         self.losses = losses
         self.createdAt = createdAt
         self.photoURLs = photoURLs
+        self.hasCompletedOnboarding = hasCompletedOnboarding
     }
 
     init(from decoder: Decoder) throws {
@@ -57,16 +60,12 @@ struct UserModel: Identifiable, Codable {
         elo = try container.decode(Int.self, forKey: .elo)
         wins = try container.decode(Int.self, forKey: .wins)
         losses = try container.decode(Int.self, forKey: .losses)
-
-        // Timestamp workaround
+        hasCompletedOnboarding = (try? container.decode(Bool.self, forKey: .hasCompletedOnboarding)) ?? false
         if let timestamp = try? container.decode(Timestamp.self, forKey: .createdAt) {
             createdAt = timestamp.dateValue()
         } else {
             createdAt = nil
         }
-
-        // photoURLs fallback
         photoURLs = (try? container.decode([String].self, forKey: .photoURLs)) ?? []
-
     }
 }

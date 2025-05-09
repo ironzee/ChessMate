@@ -8,11 +8,14 @@
 import Foundation
 import SwiftUI
 
-
 struct NotificationCenterView: View {
     @Binding var path: NavigationPath
+    var currentUserId: String
+
     @State private var selectedFilter = "All"
     private let filters = ["All", "Matches", "Reminders", "Updates"]
+
+    @StateObject private var viewModel = MatchRequestViewModel()
 
     var body: some View {
         ScrollView {
@@ -33,9 +36,7 @@ struct NotificationCenterView: View {
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 8)
                                 .background(
-                                    selectedFilter == filter ?
-                                        Color.goldenTan :
-                                        Color.lightCoffeeGray.opacity(0.4)
+                                    selectedFilter == filter ? Color.goldenTan : Color.lightCoffeeGray.opacity(0.4)
                                 )
                                 .foregroundColor(.espressoBrown)
                                 .cornerRadius(20)
@@ -44,31 +45,23 @@ struct NotificationCenterView: View {
                 }
                 .padding(.horizontal)
 
-                // Today Section Title
                 Text("Today")
                     .font(.headline)
                     .foregroundColor(.espressoBrown)
                     .padding(.horizontal)
 
-                // Dynamic section based on filter
                 Group {
                     switch selectedFilter {
-                    case "All":
-                        allNotificationsView
-                    case "Matches":
-                        matchNotificationsView
-                    case "Reminders":
-                        reminderNotificationsView
-                    case "Updates":
-                        updateNotificationsView
-                    default:
-                        allNotificationsView
+                    case "All": allNotificationsView
+                    case "Matches": matchNotificationsView
+                    case "Reminders": reminderNotificationsView
+                    case "Updates": updateNotificationsView
+                    default: allNotificationsView
                     }
                 }
 
                 Spacer(minLength: 40)
 
-                // Yesterday Section (common for all filters)
                 if selectedFilter == "All" || selectedFilter == "Matches" {
                     Text("Yesterday")
                         .font(.headline)
@@ -79,14 +72,22 @@ struct NotificationCenterView: View {
                 }
             }
         }
+        .onAppear {
+            guard !currentUserId.isEmpty else {
+                print("❌ currentUserId is empty. Skipping listener setup.")
+                return
+            }
+            print("👤 currentUserId loaded in NotificationCenterView: \(currentUserId)")
+            viewModel.startListening(for: currentUserId)
+        }
         .background(Color.creamWhite.ignoresSafeArea())
     }
 
-    // MARK: - Sections for each filter
-
     var allNotificationsView: some View {
         VStack(spacing: 16) {
-            challengeCard
+            ForEach(viewModel.matchRequests.prefix(3)) { request in
+                challengeCard(for: request)
+            }
             upcomingMatchCard
         }
     }
@@ -119,9 +120,9 @@ struct NotificationCenterView: View {
         .padding(.horizontal)
     }
 
-    // MARK: - Reusable Notification Cards
+    // MARK: - Cards
 
-    var challengeCard: some View {
+    func challengeCard(for request: MatchRequestModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .top) {
                 Image("profile_sample")
@@ -131,17 +132,23 @@ struct NotificationCenterView: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        Text("Alexandra (1850 ELO) wants to play chess!")
+                        Text("\(request.name ?? "Someone") wants to play chess!")
                             .fontWeight(.semibold)
+                            .onAppear {
+                                print("📄 Rendering match request from: \(request.name), receiver: \(request.receiverId)")
+                            }
+
                         Spacer()
-                        Text("15m ago")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                        if let createdAt = request.createdAt {
+                            Text(relativeTime(createdAt))
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                     }
 
                     HStack(spacing: 4) {
                         Image(systemName: "cup.and.saucer")
-                        Text("Suggested: The Coffee Bean, 2pm today")
+                        Text("Suggested: \(request.cafeName), \(formattedDate(request.suggestedTime))")
                     }
                     .font(.subheadline)
                     .foregroundColor(.espressoBrown)
@@ -150,7 +157,7 @@ struct NotificationCenterView: View {
 
             HStack {
                 Button("Accept") {
-                    // action
+                    viewModel.acceptRequest(request)
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -159,7 +166,7 @@ struct NotificationCenterView: View {
                 .cornerRadius(10)
 
                 Button("Decline") {
-                    // action
+                    // Placeholder for decline
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -255,8 +262,19 @@ struct NotificationCenterView: View {
         .cornerRadius(15)
         .shadow(radius: 1)
     }
-}
 
-#Preview {
-    NotificationCenterView(path: .constant(NavigationPath()))
+    // MARK: - Utilities
+
+    func relativeTime(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        return formatter.localizedString(for: date, relativeTo: Date())
+    }
+
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        return formatter.string(from: date)
+    }
 }

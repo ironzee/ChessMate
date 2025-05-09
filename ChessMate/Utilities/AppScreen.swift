@@ -12,6 +12,13 @@
 //  Created by Zulfiqur on 4/26/25.
 //
 
+//
+//  AppScreen.swift
+//  ChessMate
+//
+//  Created by Zulfiqur on 4/26/25.
+//
+
 import Foundation
 
 enum AppScreen: Hashable {
@@ -28,15 +35,23 @@ enum AppScreen: Hashable {
     case matchHistory
     case notificationCenter
     case tournamentDiscovery
-    case cafeDetails
     case ghostMode
     case login
     case signup
     case settings
     case profilePhotos
     case matchRequests
-    case editPhotosTemp(SignUpTempData) // ✅ ADDED
+    case editPhotosTemp(SignUpTempData)
+    case cafeFinderWithCafe(Cafe)
 
+    // ✅ New onboarding steps
+    case onboardingOpeningMove
+    case onboardingCafeStyle
+    case onboardingMatchSettings
+    case onboardingPersona
+    case onboardingCoffeeOrder
+    case onboardingPlayStyle
+    
     func hash(into hasher: inout Hasher) {
         switch self {
         case .onboarding: hasher.combine("onboarding")
@@ -56,7 +71,6 @@ enum AppScreen: Hashable {
         case .matchHistory: hasher.combine("matchHistory")
         case .notificationCenter: hasher.combine("notificationCenter")
         case .tournamentDiscovery: hasher.combine("tournamentDiscovery")
-        case .cafeDetails: hasher.combine("cafeDetails")
         case .ghostMode: hasher.combine("ghostMode")
         case .login: hasher.combine("login")
         case .signup: hasher.combine("signup")
@@ -69,6 +83,17 @@ enum AppScreen: Hashable {
             hasher.combine(data.email)
             hasher.combine(data.password)
             hasher.combine(data.location)
+        case .cafeFinderWithCafe(let cafe):
+            hasher.combine("cafeFinderWithCafe")
+            hasher.combine(cafe.id)
+
+        // ✅ Add onboarding cases to hashing
+        case .onboardingOpeningMove: hasher.combine("onboardingOpeningMove")
+        case .onboardingCafeStyle: hasher.combine("onboardingCafeStyle")
+        case .onboardingMatchSettings: hasher.combine("onboardingMatchSettings")
+        case .onboardingPersona: hasher.combine("onboardingPersona")
+        case .onboardingCoffeeOrder: hasher.combine("onboardingCoffeeOrder")
+        case .onboardingPlayStyle: hasher.combine("onboardingPlayStyle")
         }
     }
 
@@ -85,22 +110,33 @@ enum AppScreen: Hashable {
              (.matchHistory, .matchHistory),
              (.notificationCenter, .notificationCenter),
              (.tournamentDiscovery, .tournamentDiscovery),
-             (.cafeDetails, .cafeDetails),
              (.ghostMode, .ghostMode),
              (.login, .login),
              (.signup, .signup),
              (.settings, .settings),
              (.profilePhotos, .profilePhotos),
-             (.matchRequests, .matchRequests):
+             (.matchRequests, .matchRequests),
+             (.onboardingOpeningMove, .onboardingOpeningMove),
+             (.onboardingCafeStyle, .onboardingCafeStyle),
+             (.onboardingMatchSettings, .onboardingMatchSettings),
+             (.onboardingPersona, .onboardingPersona),
+             (.onboardingCoffeeOrder, .onboardingCoffeeOrder),
+             (.onboardingPlayStyle, .onboardingPlayStyle):
             return true
+
         case (.chat(let a), .chat(let b)),
              (.chatDetail(let a), .chatDetail(let b)):
             return a.id == b.id
+
         case (.editPhotosTemp(let a), .editPhotosTemp(let b)):
             return a.name == b.name &&
                    a.email == b.email &&
                    a.password == b.password &&
                    a.location == b.location
+
+        case (.cafeFinderWithCafe(let a), .cafeFinderWithCafe(let b)):
+            return a.id == b.id
+
         default:
             return false
         }
