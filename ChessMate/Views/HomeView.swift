@@ -8,8 +8,14 @@
 //  ChessMate
 //
 
+//
+//  HomeView.swift
+//  ChessMate
+//
+//  Created by Zulfiqur on 4/26/25.
+//
+
 import SwiftUI
-//import FirebaseFirestore
 import MapKit
 
 struct HomeView: View {
@@ -19,6 +25,7 @@ struct HomeView: View {
 
     @StateObject private var locationManager = LocationManager()
     @StateObject private var cafeFinder = CafeFinder()
+    @StateObject private var matchRequestVM = MatchRequestViewModel() // ✅ Inject match request VM
 
     var body: some View {
         ScrollView {
@@ -30,35 +37,34 @@ struct HomeView: View {
                         .foregroundColor(.espressoBrown)
 
                     Spacer()
-                    
+
                     Button(action: {
                         path.append(AppScreen.matchRequests)
-                                   }) {
-                                       Image(systemName: "bell.fill")
-                                           .foregroundColor(.espressoBrown)
-                                           .padding(10)
-                                           .background(Color.goldenTan.opacity(0.3))
-                                           .clipShape(Circle())
-                                   }
+                    }) {
+                        Image(systemName: "bell.fill")
+                            .foregroundColor(.espressoBrown)
+                            .padding(10)
+                            .background(Color.goldenTan.opacity(0.3))
+                            .clipShape(Circle())
+                    }
                     Button(action: {
                         path.append(AppScreen.notificationCenter)
-                                   }) {
-                                       Image(systemName: "bell.fill")
-                                           .foregroundColor(.espressoBrown)
-                                           .padding(10)
-                                           .background(Color.goldenTan.opacity(0.3))
-                                           .clipShape(Circle())
-                                   }
-                               
+                    }) {
+                        Image(systemName: "bell.fill")
+                            .foregroundColor(.espressoBrown)
+                            .padding(10)
+                            .background(Color.goldenTan.opacity(0.3))
+                            .clipShape(Circle())
+                    }
+
                     Button(action: {
-                               path.append(AppScreen.chatList)
-                           }) {
-                               Image(systemName: "bubble.left.and.bubble.right.fill")
-                                   .font(.title2)
-                                   .foregroundColor(.espressoBrown)
-                           }
-                    
-                       
+                        path.append(AppScreen.chatList)
+                    }) {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
+                            .font(.title2)
+                            .foregroundColor(.espressoBrown)
+                    }
+
                     Button(action: {
                         path.append(AppScreen.settings)
                     }) {
@@ -79,10 +85,7 @@ struct HomeView: View {
                                 .frame(width: 36, height: 36)
                                 .foregroundColor(.gray)
                         }
-
                     }
-
-
                 }
                 .padding(.horizontal)
 
@@ -117,8 +120,9 @@ struct HomeView: View {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        MatchCard(opponent: "The Chess House", time: "Today, 3:00 PM", status: "Confirmed")
-                        MatchCard(opponent: "Coffee & Tomes", time: "Tomorrow, 1:00 PM", status: "Pending")
+                        ForEach(matchRequestVM.confirmedMatches) { request in
+                            MatchCardView(request: request)
+                        }
                     }
                     .padding(.horizontal)
                 }
@@ -130,11 +134,10 @@ struct HomeView: View {
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                     ForEach(cafeFinder.cafes) { cafe in
-                        CafeCard(cafe: cafe) {
+                        CafeCardView(cafe: cafe) {
                             path.append(AppScreen.cafeFinderWithCafe(cafe))
                         }
                     }
-
                 }
                 .padding(.horizontal)
 
@@ -156,7 +159,6 @@ struct HomeView: View {
                     .background(Color.lightCoffeeGray)
                     .cornerRadius(12)
                 }
-
                 .padding(.horizontal)
             }
             .padding(.vertical)
@@ -167,16 +169,26 @@ struct HomeView: View {
         .ignoresSafeArea()
         .onAppear {
             authManager.refreshCurrentUser()
-            
+            if let userId = authManager.currentUser?.uid {
+                matchRequestVM.startListening(for: userId)
+            }
             if let location = locationManager.userLocation {
                 cafeFinder.searchCafes(near: location)
             }
         }
-
         .onReceive(locationManager.$userLocation) { newLocation in
             guard let location = newLocation else { return }
             cafeFinder.searchCafes(near: location)
         }
+    }
+
+    // ✅ Format time from timestamp
+    func formatDate(_ timestamp: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
@@ -212,37 +224,42 @@ struct MatchCard: View {
     }
 }
 
-//struct CafeCard: View {
-//    let cafe: Cafe       // ✅ NEW
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            Rectangle()
-//                .fill(Color.goldenTan)
-//                .frame(height: 100)
-//                .cornerRadius(10)
-//                .overlay(
-//                    Text(cafe.name)
-//                        .font(.subheadline.bold())
-//                        .padding(8)
-//                        .foregroundColor(.espressoBrown), alignment: .bottomLeading
-//                )
-//
-//            Text(" players")
-//                .font(.caption)
-//                .foregroundColor(.espressoBrown)
-//
-//            Text("\(String(format: "%.1f", cafe.distance)) mi")
-//                .font(.caption2)
-//                .foregroundColor(.espressoBrown.opacity(0.6))
-//        }
-//        .onTapGesture {
-//            let placemark = MKPlacemark(coordinate: cafe.coordinate)
-//            let mapItem = MKMapItem(placemark: placemark)
-//            mapItem.name = cafe.name
-//            mapItem.openInMaps(launchOptions: nil)
-//        }
-//    }
-//}
+struct CafeCardView: View {
+    let cafe: Cafe
+    let onTap: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Image("cafe_placeholder") // Replace with real image if you have café images
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 120)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .cornerRadius(10)
+
+            Text(cafe.name)
+                .font(.headline)
+                .foregroundColor(.espressoBrown)
+
+            Text("\(Int.random(in: 6...20)) players") // Mock player count
+                .font(.subheadline)
+                .foregroundColor(.gray)
+
+            Text(String(format: "%.1f mi", cafe.distance))
+                .font(.caption)
+                .foregroundColor(.espressoBrown.opacity(0.6))
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(radius: 2)
+        .onTapGesture {
+            onTap()
+        }
+    }
+}
+
 
 
 

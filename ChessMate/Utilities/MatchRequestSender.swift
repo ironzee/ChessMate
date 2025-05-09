@@ -9,28 +9,32 @@ import Foundation
 import Foundation
 import FirebaseFirestore
 
+
+
 class MatchRequestSender {
     private let db = Firestore.firestore()
 
     func sendRequest(
         from senderId: String,
-        senderName: String, // 👈 ADD THIS
+        senderName: String,
         to receiverId: String,
         chatId: String? = nil,
         cafeName: String,
         suggestedTime: Date,
         completion: @escaping (Bool) -> Void
     ) {
+        let participants = [senderId, receiverId] // ✅ New field for querying
+
         let newRequest: [String: Any] = [
             "senderId": senderId,
             "receiverId": receiverId,
             "cafeName": cafeName,
-            "suggestedTime": suggestedTime,
+            "suggestedTime": Timestamp(date: suggestedTime), // ✅ stored as Timestamp
             "status": "pending",
             "chatId": chatId ?? "",
-            "createdAt": FieldValue.serverTimestamp(),
-            "name": senderName, // <- Add this
-
+            "createdAt": FieldValue.serverTimestamp(), // ✅ stored with server timestamp
+            "name": senderName,
+            "participants": participants // ✅ Add both sender and receiver here
         ]
 
         db.collection("matchRequests").addDocument(data: newRequest) { error in

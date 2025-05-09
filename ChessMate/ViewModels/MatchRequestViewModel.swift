@@ -15,6 +15,12 @@ class MatchRequestViewModel: ObservableObject {
     private let db = Firestore.firestore()
     private var listener: ListenerRegistration?
 
+    var confirmedMatches: [MatchRequestModel] {
+        matchRequests.filter {
+            $0.status.lowercased() == "accepted" || $0.status.lowercased() == "confirmed"
+        }
+    }
+
     // Load all requests where user is the receiver
     func fetchRequests(for userId: String) {
         listener = db.collection("matchRequests")
@@ -33,22 +39,23 @@ class MatchRequestViewModel: ObservableObject {
     }
 
     func startListening(for userId: String) {
-            listener?.remove() // remove previous listener if any
+        listener?.remove()
 
-            listener = db.collection("matchRequests")
-                .whereField("receiverId", isEqualTo: userId)
-                .order(by: "createdAt", descending: true)
-                .addSnapshotListener { snapshot, error in
-                    if let error = error {
-                        print("❌ Error fetching match requests: \(error.localizedDescription)")
-                        return
-                    }
-
-                    self.matchRequests = snapshot?.documents.compactMap {
-                        try? $0.data(as: MatchRequestModel.self)
-                    } ?? []
+        listener = db.collection("matchRequests")
+            .whereField("participants", arrayContains: userId)
+            .order(by: "createdAt", descending: true)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("❌ Error fetching match requests: \(error.localizedDescription)")
+                    return
                 }
-        }
+
+                self.matchRequests = snapshot?.documents.compactMap {
+                    try? $0.data(as: MatchRequestModel.self)
+                } ?? []
+            }
+    }
+
    
  
     func acceptRequest(_ request: MatchRequestModel) {

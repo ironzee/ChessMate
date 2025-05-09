@@ -39,6 +39,7 @@
 		184E6F1D2DCBFBFA00CE3057 /* MatchRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */; };
 		184E6F1F2DCBFC2000CE3057 /* MatchRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */; };
 		184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */; };
+		185ECC282DCDC8270038D32A /* MatchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC272DCDC8270038D32A /* MatchCardView.swift */; };
 		1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DC9E2DC5BE8400D14B94 /* UserModel.swift */; };
 		1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */; };
 		1860DCA52DC5D55A00D14B94 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA42DC5D55A00D14B94 /* Player.swift */; };
@@ -111,6 +112,7 @@
 		184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestsView.swift; sourceTree = "<group>"; };
 		184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestSender.swift; sourceTree = "<group>"; };
 		184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosViewModel.swift; sourceTree = "<group>"; };
+		185ECC272DCDC8270038D32A /* MatchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardView.swift; sourceTree = "<group>"; };
 		1860DC9E2DC5BE8400D14B94 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingViewModel.swift; sourceTree = "<group>"; };
 		1860DCA42DC5D55A00D14B94 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */,
 				184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */,
 				1869EC5D2DCD7FD900FC24B3 /* SuggestMatchView.swift */,
+				185ECC272DCDC8270038D32A /* MatchCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */,
 				188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */,
 				188C3F172DC5EF31000C92FA /* ChatDetailView.swift in Sources */,
+				185ECC282DCDC8270038D32A /* MatchCardView.swift in Sources */,
 				1869EC672DCDAF4300FC24B3 /* OpeningMoveView.swift in Sources */,
 				1843633C2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift in Sources */,
 				188C3F2A2DC726B0000C92FA /* SettingsView.swift in Sources */,

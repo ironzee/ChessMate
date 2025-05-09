@@ -6,9 +6,7 @@
 //
 
 import Foundation
-import Foundation
 import FirebaseFirestoreSwift
-
 
 struct MatchRequestModel: Identifiable, Codable {
     @DocumentID var id: String?
@@ -17,11 +15,12 @@ struct MatchRequestModel: Identifiable, Codable {
     var cafeName: String
     var suggestedTime: Date
     var status: String // "pending", "accepted", "declined"
-    var name: String? // 👈 sender's display name
+    var name: String? // sender's display name
 
     var newTime: Date?
     var newCafeName: String?
-    var chatId: String? // optional, if linked to a chat
+    var chatId: String?
+    var createdAt: Date?
 
-    var createdAt: Date? // ✅ make this optional to prevent crash
+    var participants: [String]? // ✅ NEW: used for querying both sender & receiver
 }
