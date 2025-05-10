@@ -7,65 +7,63 @@
 
 import Foundation
 import SwiftUI
+import SwiftUI
 
 struct CoffeeOrderView: View {
     @Binding var cafeStyle: String
     @Binding var coffeeOrder: String
     var onNext: () -> Void
 
+    let drinks = [
+        "Black Coffee",
+        "Latte",
+        "Espresso",
+        "Iced Coffee",
+        "Matcha",
+        "I don’t drink coffee"
+    ]
+
     var body: some View {
         VStack(spacing: 24) {
-            Text("Your Café Style")
+            Text("Your Go-To Drink")
                 .font(.title)
-                .fontWeight(.bold)
                 .foregroundColor(.espressoBrown)
 
             VStack(spacing: 16) {
-                cafeStyleOption("Quiet Focus", subtitle: "Minimal distractions")
-                cafeStyleOption("Chill Music", subtitle: "Background ambiance")
-                cafeStyleOption("Social Atmosphere", subtitle: "Open to conversation")
+                ForEach(drinks, id: \.self) { drink in
+                    Button {
+                        coffeeOrder = drink
+                    } label: {
+                        HStack {
+                            Text(drink)
+                            Spacer()
+                            if coffeeOrder == drink {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.deepForestGreen)
+                            }
+                        }
+                        .padding()
+                        .background(Color.lightCoffeeGray)
+                        .foregroundColor(.espressoBrown)
+                        .cornerRadius(12)
+                    }
+                }
             }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Coffee Order")
-                    .font(.headline)
-                    .foregroundColor(.espressoBrown)
-
-                TextField("What's your go-to drink?", text: $coffeeOrder)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
+            Spacer()
 
             Button("Next") {
                 onNext()
             }
-            .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.deepForestGreen)
+            .frame(maxWidth: .infinity)
+            .background(Color.espressoBrown)
             .foregroundColor(.white)
-            .cornerRadius(16)
-
-            Spacer()
+            .cornerRadius(14)
         }
         .padding()
-    }
-
-    func cafeStyleOption(_ title: String, subtitle: String) -> some View {
-        Button {
-            cafeStyle = title
-        } label: {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.headline)
-                Text(subtitle)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(cafeStyle == title ? Color.deepForestGreen : Color.lightCoffeeGray, lineWidth: 2)
-            )
-        }
+        .background(Color.creamWhite.ignoresSafeArea())
+        .navigationTitle("Coffee Order")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

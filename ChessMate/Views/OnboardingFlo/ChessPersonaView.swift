@@ -6,19 +6,13 @@
 //
 
 import Foundation
-//
-//  ChessPersonaView.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 5/8/25.
-//
-
 import SwiftUI
 
 struct ChessPersonaView: View {
     @Binding var path: NavigationPath
     @Binding var onboardingData: OnboardingData
     var userId: String
+    var onComplete: () -> Void
 
     let personas = [
         "The Gambit Lover ♛",
@@ -70,15 +64,7 @@ struct ChessPersonaView: View {
 
                 Button("Finish Onboarding") {
                     onboardingData.chessPersonaReason = reason
-                    UserManager.shared.saveOnboardingData(for: userId, data: onboardingData.toMap()) { success in
-                        if success {
-                            print("✅ All onboarding data saved.")
-                            path.removeLast(path.count)
-                            path.append(AppScreen.home) // ✅ send to home
-                        } else {
-                            print("❌ Failed to save onboarding data.")
-                        }
-                    }
+                    onComplete()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)

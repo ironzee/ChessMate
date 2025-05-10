@@ -15,7 +15,7 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
-
+import FirebaseFirestore
 
 struct ContentView: View {
     @State private var path = NavigationPath()
@@ -168,7 +168,13 @@ struct ContentView: View {
                         })
 
                 case .onboardingPersona:
-                    ChessPersonaView(path: $path, onboardingData: $onboardingData, userId: authManager.currentUser?.id ?? "")
+                    ChessPersonaView(
+                        path: $path,
+                        onboardingData: $onboardingData,
+                        userId: authManager.currentUser?.id ?? "",
+                        onComplete: submitData
+                    )
+
                 }
             }
         }
@@ -182,4 +188,28 @@ struct ContentView: View {
             }
         }
     }
+    private func submitData() {
+        guard let uid = authManager.currentUser?.id else {
+            print("Missing user ID")
+            return
+        }
+
+        UserManager.shared.saveOnboardingData(for: uid, data: onboardingData.toMap()) { success in
+            if success {
+                Firestore.firestore().collection("users").document(uid).updateData([
+                    "hasCompletedOnboarding": true
+                ]) { error in
+                    if let error = error {
+                        print("❌ Firestore update error: \(error.localizedDescription)")
+                    } else {
+                        path = NavigationPath()
+                        path.append(AppScreen.home)
+                    }
+                }
+            } else {
+                print("❌ Failed to save onboarding data.")
+            }
+        }
+    }
+
 }

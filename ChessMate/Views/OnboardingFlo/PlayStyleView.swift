@@ -5,9 +5,6 @@
 //  Created by Zulfiqur on 5/8/25.
 //
 
-import Foundation
-
-
 import SwiftUI
 
 struct PlayStyleView: View {
@@ -32,13 +29,14 @@ struct PlayStyleView: View {
                 ForEach(styles, id: \.self) { style in
                     Button(action: {
                         onboardingData.playStyle = style
-                        path.append(AppScreen.onboardingOpeningMove) // 👈 Go to next screen
+                        path.append(AppScreen.onboardingOpeningMove)
                     }) {
                         HStack {
                             Text(style)
                             Spacer()
                             if onboardingData.playStyle == style {
                                 Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.deepForestGreen)
                             }
                         }
                         .padding()

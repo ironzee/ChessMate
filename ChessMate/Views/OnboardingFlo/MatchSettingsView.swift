@@ -13,6 +13,13 @@ import Foundation
 //  Created by Zulfiqur on 5/8/25.
 //
 
+//
+//  MatchSettingsView.swift
+//  ChessMate
+//
+//  Created by Zulfiqur on 5/8/25.
+//
+
 import SwiftUI
 
 struct MatchSettingsView: View {
@@ -20,8 +27,8 @@ struct MatchSettingsView: View {
     @Binding var onboardingData: OnboardingData
 
     let timeControls = [
-        "Blitz (5-10 min)",
-        "Rapid (15-30 min)",
+        "Blitz (5–10 min)",
+        "Rapid (15–30 min)",
         "Casual (no clock)"
     ]
 
@@ -45,6 +52,7 @@ struct MatchSettingsView: View {
                             Spacer()
                             if onboardingData.matchSetting == setting {
                                 Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.deepForestGreen)
                             }
                         }
                         .padding()
@@ -66,7 +74,7 @@ struct MatchSettingsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(onboardingData.bringBuddy == true ? Color.deepForestGreen : Color.lightCoffeeGray)
+                    .background(onboardingData.bringBuddy ? Color.deepForestGreen : Color.lightCoffeeGray)
                     .foregroundColor(.white)
                     .cornerRadius(12)
 

@@ -21,10 +21,10 @@ struct OnboardingView: View {
     private let totalSteps = 6
 
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             ProgressView(value: Double(step), total: Double(totalSteps))
                 .accentColor(.deepForestGreen)
-                .padding()
+                .padding(.horizontal)
 
             Group {
                 switch step {
@@ -52,7 +52,8 @@ struct OnboardingView: View {
                     ChessPersonaView(
                         path: $path,
                         onboardingData: $onboardingData,
-                        userId: userId
+                        userId: userId,
+                        onComplete: submitData
                     )
                 default:
                     EmptyView()
@@ -62,7 +63,7 @@ struct OnboardingView: View {
             if let errorMessage = errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
-                    .padding()
+                    .padding(.horizontal)
             }
 
             if isSaving {
@@ -76,51 +77,20 @@ struct OnboardingView: View {
 
     private func submitData() {
         guard let uid = authManager.currentUser?.id else {
-            errorMessage = "Unable to find user ID"
             return
         }
 
-        isSaving = true
-        errorMessage = nil
-
         UserManager.shared.saveOnboardingData(for: uid, data: onboardingData.toMap()) { success in
-            isSaving = false
             if success {
                 Firestore.firestore().collection("users").document(uid).updateData([
                     "hasCompletedOnboarding": true
-                ]) { error in
-                    if let error = error {
-                        errorMessage = "Error finishing onboarding: \(error.localizedDescription)"
-                    } else {
-                        path = NavigationPath()
-                        path.append(AppScreen.home)
-                    }
-                }
+                ])
+                self.path = NavigationPath()
+                self.path.append(AppScreen.home)
             } else {
-                errorMessage = "Failed to save onboarding data. Please try again."
+                print("❌ Failed to save onboarding data.")
             }
         }
     }
+
 }
-#Preview {
-    OnboardingView(
-        path: .constant(NavigationPath()),
-        userId: "test_user_123",
-        authManager: mockAuthManager
-    )
-}
-private let mockAuthManager: AuthManager = {
-    let manager = AuthManager()
-    manager.currentUser = UserModel(
-        uid: "test_user_123",
-        name: "Test User",
-        email: "test@example.com",
-        location: "NYC",
-        elo: 1200,
-        wins: 0,
-        losses: 0,
-        createdAt: Date(),
-        photoURLs: []
-    )
-    return manager
-}()

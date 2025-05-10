@@ -5,16 +5,8 @@
 //  Created by Zulfiqur on 5/8/25.
 //
 
-import Foundation
-//
-//  OpeningMoveView.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 5/8/25.
-//
-
 import SwiftUI
-
+import Foundation
 struct OpeningMoveView: View {
     @Binding var path: NavigationPath
     @Binding var onboardingData: OnboardingData
@@ -31,7 +23,7 @@ struct OpeningMoveView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("What’s your favorite opening?")
+            Text("Favorite Opening?")
                 .font(.title)
                 .foregroundColor(.espressoBrown)
 
@@ -39,13 +31,14 @@ struct OpeningMoveView: View {
                 ForEach(openings, id: \.self) { move in
                     Button(action: {
                         onboardingData.openingMove = move
-                        path.append(AppScreen.onboardingCafeStyle) // ✅ Go to next
+                        path.append(AppScreen.onboardingCafeStyle)
                     }) {
                         HStack {
                             Text(move)
                             Spacer()
                             if onboardingData.openingMove == move {
                                 Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.deepForestGreen)
                             }
                         }
                         .padding()

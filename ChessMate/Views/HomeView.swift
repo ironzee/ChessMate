@@ -90,17 +90,17 @@ struct HomeView: View {
                 .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Ready to play?")
+                    Text("Checkmate or Soulmate?")
                         .font(.title2.bold())
                         .foregroundColor(.espressoBrown)
 
-                    Text("Find chess partners at nearby cafés")
+                    Text("Coffee, conversation, and clever moves awaits...")
                         .foregroundColor(.espressoBrown.opacity(0.4))
 
                     Button(action: {
                         path.append(AppScreen.matchmaking)
                     }) {
-                        Text("Find a Match")
+                        Text("Start Matching❤️")
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color.espressoBrown)
@@ -230,7 +230,7 @@ struct CafeCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image("cafe_placeholder") // Replace with real image if you have café images
+            Image("cafe1") // Replace with real image if you have café images
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 120)

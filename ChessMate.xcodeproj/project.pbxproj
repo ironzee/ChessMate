@@ -40,6 +40,9 @@
 		184E6F1F2DCBFC2000CE3057 /* MatchRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */; };
 		184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */; };
 		185ECC282DCDC8270038D32A /* MatchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC272DCDC8270038D32A /* MatchCardView.swift */; };
+		185ECC2A2DCE446F0038D32A /* SettingsSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC292DCE446F0038D32A /* SettingsSheets.swift */; };
+		185ECC2C2DCF00810038D32A /* MatchSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */; };
+		185ECC2E2DCF059E0038D32A /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC2D2DCF059E0038D32A /* LikeService.swift */; };
 		1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DC9E2DC5BE8400D14B94 /* UserModel.swift */; };
 		1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */; };
 		1860DCA52DC5D55A00D14B94 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA42DC5D55A00D14B94 /* Player.swift */; };
@@ -113,6 +116,9 @@
 		184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRequestSender.swift; sourceTree = "<group>"; };
 		184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosViewModel.swift; sourceTree = "<group>"; };
 		185ECC272DCDC8270038D32A /* MatchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardView.swift; sourceTree = "<group>"; };
+		185ECC292DCE446F0038D32A /* SettingsSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheets.swift; sourceTree = "<group>"; };
+		185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSuccessView.swift; sourceTree = "<group>"; };
+		185ECC2D2DCF059E0038D32A /* LikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeService.swift; sourceTree = "<group>"; };
 		1860DC9E2DC5BE8400D14B94 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingViewModel.swift; sourceTree = "<group>"; };
 		1860DCA42DC5D55A00D14B94 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -255,6 +261,8 @@
 				184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */,
 				1869EC5D2DCD7FD900FC24B3 /* SuggestMatchView.swift */,
 				185ECC272DCDC8270038D32A /* MatchCardView.swift */,
+				185ECC292DCE446F0038D32A /* SettingsSheets.swift */,
+				185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 				184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */,
 				184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */,
 				1869EC582DCD70EF00FC24B3 /* LocationManager.swift */,
+				185ECC2D2DCF059E0038D32A /* LikeService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -494,6 +503,9 @@
 				188C3F262DC70E27000C92FA /* CafeModel.swift in Sources */,
 				188C3F192DC5F7AE000C92FA /* ChatDetailViewModel.swift in Sources */,
 				1843633E2DBDC4BE00F7FDBD /* CafeDetailsView.swift in Sources */,
+				185ECC2A2DCE446F0038D32A /* SettingsSheets.swift in Sources */,
+				185ECC2C2DCF00810038D32A /* MatchSuccessView.swift in Sources */,
+				185ECC2E2DCF059E0038D32A /* LikeService.swift in Sources */,
 				1869EC592DCD70EF00FC24B3 /* LocationManager.swift in Sources */,
 				1869EC6B2DCDAF7100FC24B3 /* MatchSettingsView.swift in Sources */,
 				1843632C2DBDC24E00F7FDBD /* ChatView.swift in Sources */,

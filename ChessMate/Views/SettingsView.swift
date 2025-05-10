@@ -5,168 +5,178 @@
 //  Created by Zulfiqur on 5/4/25.
 //
 
-import Foundation
+//
+//  SettingsView.swift
+//  ChessMate
+//
+//  Final version as of 5/9/25
+
 import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
     @Binding var path: NavigationPath
-    @Binding var isLoggedIn: Bool // ✅ Add this
+    @Binding var isLoggedIn: Bool
     @ObservedObject var authManager: AuthManager
+    
+    @State private var selectedSheet: SettingsSheetType?
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                // Header
-                VStack(spacing: 12) {
-                    HStack {
-                        Button(action: {
-                            path.removeLast() // Go back
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.title2)
-                                .foregroundColor(.espressoBrown)
+            VStack(spacing: 24) {
+
+                // MARK: - Profile Header
+                HStack(spacing: 16) {
+                    if let photoURL = authManager.currentUser?.photoURLs?.first,
+                       let url = URL(string: photoURL) {
+                        AsyncImage(url: url) { image in
+                            image.resizable().scaledToFill()
+                        } placeholder: {
+                            ProgressView()
                         }
-                        Spacer()
-                        Text("Settings")
-                            .font(.title2.bold())
-                            .foregroundColor(.espressoBrown)
-                        Spacer()
-                        Spacer()
+                        .frame(width: 64, height: 64)
+                        .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .frame(width: 64, height: 64)
+                            .foregroundColor(.lightCoffeeGray)
                     }
 
-                    HStack(spacing: 16) {
-                        if let photoURL = authManager.currentUser?.photoURLs?.first,
-                           let url = URL(string: photoURL) {
-                            AsyncImage(url: url) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-                        } else {
-                            Image(systemName: "person.crop.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(.lightCoffeeGray)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(authManager.currentUser?.name ?? "Michael Chen")
-                                .font(.headline)
-                                .foregroundColor(.espressoBrown)
-
-                            HStack {
-                                Text("ELO 1850")
-                                    .font(.subheadline)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(Color.lightCoffeeGray)
-                                    .cornerRadius(10)
-
-                                Text("Master")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                        }
-
-                        Spacer()
-
-                        Button("Edit Photos") {
-                            path.append(AppScreen.profilePhotos)
-                        }
-                        .font(.subheadline)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color.deepForestGreen)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
-                }
-                .padding()
-                .background(Color.creamWhite)
-
-                SettingsSection(title: "ACCOUNT SETTINGS", items: [
-                    ("person.fill", "Profile Information"),
-                    ("chessboard", "Chess Preferences"),
-                    ("clock.arrow.circlepath", "Match History"),
-                    ("trophy.fill", "Achievements & Badges"),
-                    ("cup.and.saucer.fill", "Favorite Cafés")
-                ])
-
-                SettingsSection(title: "PRIVACY & SECURITY", items: [
-                    ("lock.fill", "Privacy Settings"),
-                    ("bell.fill", "Notification Preferences"),
-                    ("location", "Location Services"),
-                    ("key.fill", "Account Security")
-                ])
-
-                SettingsSection(title: "APP SETTINGS", items: [
-                    ("globe", "Language"),
-                    ("moon.fill", "Dark Mode"),
-                    ("speaker.wave.2.fill", "Sound Effects"),
-                    ("info.circle.fill", "App Version")
-                ])
-
-                VStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("ChessMate Premium")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(authManager.currentUser?.name ?? "User")
                             .font(.headline)
                             .foregroundColor(.espressoBrown)
-                        Text("Unlock exclusive features")
+                        Text("ELO Rating: \(authManager.currentUser?.elo ?? 1850)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
-                    .padding(.horizontal)
 
+                    Spacer()
+
+                    Button("Edit Photos") {
+                        path.append(AppScreen.profilePhotos)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.deepForestGreen)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(16)
+                .padding(.horizontal)
+
+                // MARK: - Chess Settings
+                SettingsCard(title: "Chess Settings", items: [
+                    ("chessboard", "Preferred Openings", .preferredOpenings),
+                    ("clock", "Time Controls", .timeControls)
+                ], selectedSheet: $selectedSheet)
+
+                // MARK: - Match Settings
+                SettingsCard(title: "Match Settings", items: [
+                    ("mappin.and.ellipse", "Search Distance", .searchDistance),
+                    ("cup.and.saucer", "Café Preferences", .cafePreferences),
+                    ("clock.arrow.2.circlepath", "Meeting Times", .meetingTimes)
+                ], selectedSheet: $selectedSheet)
+
+                // MARK: - Account
+                SettingsCard(title: "Account", items: [
+                    ("bell.fill", "Notifications", .notifications),
+                    ("globe", "Language", .language),
+                    ("moon.fill", "Dark Mode", .darkMode)
+                ], selectedSheet: $selectedSheet)
+
+                // MARK: - Support
+                SettingsCard(title: "Support", items: [
+                    ("questionmark.circle", "Help Center", .helpCenter),
+                    ("lock.fill", "Privacy Policy", .privacyPolicy)
+                ], selectedSheet: $selectedSheet)
+
+                // MARK: - Premium
+                VStack(spacing: 12) {
+                    Text("ChessMate Premium")
+                        .font(.headline)
+                        .foregroundColor(.espressoBrown)
+                    Text("Unlock exclusive features")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
                     Button("Upgrade to Premium") {
-                        // Premium action
+                        // Action TBD
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.goldenTan)
                     .foregroundColor(.white)
-                    .cornerRadius(16)
+                    .cornerRadius(14)
                 }
                 .padding()
-                .background(Color.creamWhite)
-                .cornerRadius(12)
-                .padding(.horizontal)
-
-                Button("Log Out") {
-                    
-                    authManager.logout()
-                    isLoggedIn = false
-
-                }
-                .font(.headline)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.deepForestGreen)
-                .foregroundColor(.white)
+                .background(Color.white)
                 .cornerRadius(16)
                 .padding(.horizontal)
 
+                // MARK: - Logout + Delete
+                Button("Log Out") {
+                    authManager.logout()
+                    isLoggedIn = false
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.white)
+                .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.deepForestGreen))
+                .foregroundColor(.deepForestGreen)
+                .cornerRadius(14)
+                .padding(.horizontal)
+
                 Button("Delete Account") {
-                    // Future delete action
+                    // Future deletion
                 }
                 .foregroundColor(.red)
                 .padding(.bottom)
             }
+            .padding(.top)
         }
         .background(Color.creamWhite.ignoresSafeArea())
-        .navigationBarBackButtonHidden(true)
-
+        .navigationBarBackButtonHidden(false)
+        .sheet(item: $selectedSheet) { sheetType in
+            switch sheetType {
+            case .preferredOpenings: PreferredOpeningsSheet()
+            case .timeControls: TimeControlSheet()
+            case .searchDistance: MatchDistanceSheet()
+            case .cafePreferences: CafePreferencesSheet()
+            case .meetingTimes: MeetingTimeSheet()
+            case .notifications: NotificationsSheet()
+            case .language: LanguageSheet()
+            case .darkMode: ThemeSheet()
+            case .helpCenter: HelpCenterSheet()
+            case .privacyPolicy: PrivacyPolicySheet()
+            }
+        }
     }
 }
 
-struct SettingsSection: View {
-    var title: String
-    var items: [(String, String)]
+// MARK: - Sheet Type Enum
+enum SettingsSheetType: Identifiable {
+    var id: String { UUID().uuidString }
+
+    case preferredOpenings
+    case timeControls
+    case searchDistance
+    case cafePreferences
+    case meetingTimes
+    case notifications
+    case language
+    case darkMode
+    case helpCenter
+    case privacyPolicy
+}
+
+// MARK: - Reusable Card View
+struct SettingsCard: View {
+    let title: String
+    let items: [(String, String, SettingsSheetType)]
+    @Binding var selectedSheet: SettingsSheetType?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -175,24 +185,24 @@ struct SettingsSection: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal)
 
-            ForEach(0..<items.count, id: \.self) { index in
-                let item = items[index]
-                HStack {
-                    Image(systemName: item.0)
-                        .foregroundColor(.espressoBrown)
-                    Text(item.1)
-                        .foregroundColor(.espressoBrown)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.gray)
+            ForEach(items, id: \.1) { icon, label, sheet in
+                Button(action: { selectedSheet = sheet }) {
+                    HStack {
+                        Image(systemName: icon)
+                            .foregroundColor(.espressoBrown)
+                        Text(label)
+                            .foregroundColor(.espressoBrown)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
                 }
-                .padding()
                 Divider()
             }
-
         }
         .background(Color.white)
-        .cornerRadius(12)
+        .cornerRadius(16)
         .padding(.horizontal)
     }
 }
