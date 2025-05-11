@@ -92,21 +92,7 @@ struct FavoriteCafesSheet: View {
 }
 
 // MARK: - Notification Preferences Sheet
-struct NotificationsSheet: View {
-    @State private var chat = true
-    @State private var match = true
-    @State private var promos = false
 
-    var body: some View {
-        SheetContainer(title: "Notifications") {
-            Toggle("Chat Messages", isOn: $chat)
-            Toggle("Match Invites", isOn: $match)
-            Toggle("Promotional Alerts", isOn: $promos)
-
-            Button("Save Preferences") {}
-        }
-    }
-}
 
 // MARK: - Privacy Sheet
 struct PrivacySheet: View {
@@ -122,32 +108,7 @@ struct PrivacySheet: View {
 }
 
 // MARK: - Theme Sheet
-struct ThemeSheet: View {
-    @AppStorage("darkMode") var darkMode = false
 
-    var body: some View {
-        SheetContainer(title: "App Theme") {
-            Toggle("Dark Mode", isOn: $darkMode)
-        }
-    }
-}
-
-// MARK: - Language Sheet
-struct LanguageSheet: View {
-    @State private var selectedLang = "English"
-    let languages = ["English", "Spanish", "French"]
-
-    var body: some View {
-        SheetContainer(title: "Language") {
-            Picker("Select Language", selection: $selectedLang) {
-                ForEach(languages, id: \.self) { lang in
-                    Text(lang)
-                }
-            }
-            .pickerStyle(WheelPickerStyle())
-        }
-    }
-}
 
 // MARK: - Sheet UI Wrapper
 struct SheetContainer<Content: View>: View {
@@ -205,23 +166,7 @@ struct TimeControlSheet: View {
 }
 
 // MARK: - Match Distance Sheet
-struct MatchDistanceSheet: View {
-    @State private var distance = 5.0
 
-    var body: some View {
-        SheetContainer(title: "Search Distance") {
-            HStack {
-                Image(systemName: "map")
-                Text("Maximum Travel Distance")
-                Spacer()
-                Text("\(Int(distance)) km")
-            }
-            Slider(value: $distance, in: 1...50, step: 1)
-
-            Button("Save") {}
-        }
-    }
-}
 
 // MARK: - Café Preferences Sheet
 struct CafePreferencesSheet: View {
@@ -237,33 +182,7 @@ struct CafePreferencesSheet: View {
 }
 
 // MARK: - Meeting Time Sheet
-struct MeetingTimeSheet: View {
-    @State private var times = ["Morning", "Afternoon", "Evening"]
-    @State private var selectedTimes: Set<String> = []
 
-    var body: some View {
-        SheetContainer(title: "Preferred Times") {
-            ForEach(times, id: \.self) { time in
-                Button {
-                    if selectedTimes.contains(time) {
-                        selectedTimes.remove(time)
-                    } else {
-                        selectedTimes.insert(time)
-                    }
-                } label: {
-                    Text(time)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(selectedTimes.contains(time) ? Color.deepForestGreen : Color.white)
-                        .foregroundColor(selectedTimes.contains(time) ? .white : .espressoBrown)
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.deepForestGreen))
-                }
-            }
-            Button("Save") {}
-        }
-    }
-}
 
 // MARK: - Help Center Sheet
 struct HelpCenterSheet: View {

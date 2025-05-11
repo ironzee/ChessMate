@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
 class ChatListViewModel: ObservableObject {
     @Published var chats: [ChatDisplayModel] = []
 
@@ -39,6 +38,8 @@ class ChatListViewModel: ObservableObject {
                         if let data = snap?.data() {
                             let name = data["name"] as? String ?? "Unknown"
                             let elo = data["elo"] as? Int ?? 1200
+                            let photoURLs = data["photoURLs"] as? [String]
+                            let profilePicURL = photoURLs?.first
 
                             let display = ChatDisplayModel(
                                 id: chat.id ?? UUID().uuidString,
@@ -46,7 +47,8 @@ class ChatListViewModel: ObservableObject {
                                 otherUserName: name,
                                 otherUserElo: elo,
                                 lastMessage: chat.lastMessage,
-                                timestamp: chat.timestamp
+                                timestamp: chat.timestamp,
+                                profilePicURL: profilePicURL
                             )
 
                             displayModels.append(display)
@@ -65,6 +67,7 @@ class ChatListViewModel: ObservableObject {
         listener?.remove()
     }
 }
+
 import Foundation
 
 struct ChatDisplayModel: Identifiable {
@@ -74,4 +77,6 @@ struct ChatDisplayModel: Identifiable {
     let otherUserElo: Int
     let lastMessage: String?
     let timestamp: Date?
+    let profilePicURL: String? // ✅ New
 }
+

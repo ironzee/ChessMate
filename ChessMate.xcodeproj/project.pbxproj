@@ -30,7 +30,6 @@
 		184363382DBDC38C00F7FDBD /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363372DBDC38C00F7FDBD /* AppScreen.swift */; };
 		1843633A2DBDC4A900F7FDBD /* NotificationCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */; };
 		1843633C2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */; };
-		1843633E2DBDC4BE00F7FDBD /* CafeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */; };
 		184363402DBDC4C800F7FDBD /* GhostModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */; };
 		184E6F152DCBC9CC00CE3057 /* GuestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */; };
 		184E6F172DCBF96500CE3057 /* ChessMatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */; };
@@ -43,6 +42,14 @@
 		185ECC2A2DCE446F0038D32A /* SettingsSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC292DCE446F0038D32A /* SettingsSheets.swift */; };
 		185ECC2C2DCF00810038D32A /* MatchSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */; };
 		185ECC2E2DCF059E0038D32A /* LikeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC2D2DCF059E0038D32A /* LikeService.swift */; };
+		185ECC302DCF3AF60038D32A /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC2F2DCF3AF60038D32A /* SettingsManager.swift */; };
+		185ECC322DCF3B190038D32A /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC312DCF3B190038D32A /* SettingsModel.swift */; };
+		185ECC352DCF3B9D0038D32A /* MatchDistanceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC342DCF3B9D0038D32A /* MatchDistanceSheet.swift */; };
+		185ECC372DCF3BCE0038D32A /* MeetingTimeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC362DCF3BCE0038D32A /* MeetingTimeSheet.swift */; };
+		185ECC392DCF3BEB0038D32A /* NotificationsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC382DCF3BEB0038D32A /* NotificationsSheet.swift */; };
+		185ECC3B2DCF3BF80038D32A /* ThemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC3A2DCF3BF80038D32A /* ThemeSheet.swift */; };
+		185ECC3D2DCF3C090038D32A /* LanguageSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC3C2DCF3C090038D32A /* LanguageSheet.swift */; };
+		185ECC3F2DCF3EE60038D32A /* EditPreferencesFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185ECC3E2DCF3EE60038D32A /* EditPreferencesFlow.swift */; };
 		1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DC9E2DC5BE8400D14B94 /* UserModel.swift */; };
 		1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */; };
 		1860DCA52DC5D55A00D14B94 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860DCA42DC5D55A00D14B94 /* Player.swift */; };
@@ -106,7 +113,6 @@
 		184363372DBDC38C00F7FDBD /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterView.swift; sourceTree = "<group>"; };
 		1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDiscoveryView.swift; sourceTree = "<group>"; };
-		1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailsView.swift; sourceTree = "<group>"; };
 		1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostModeView.swift; sourceTree = "<group>"; };
 		184E6F142DCBC9CC00CE3057 /* GuestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestGenerator.swift; sourceTree = "<group>"; };
 		184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMatchRequest.swift; sourceTree = "<group>"; };
@@ -119,6 +125,14 @@
 		185ECC292DCE446F0038D32A /* SettingsSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheets.swift; sourceTree = "<group>"; };
 		185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSuccessView.swift; sourceTree = "<group>"; };
 		185ECC2D2DCF059E0038D32A /* LikeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeService.swift; sourceTree = "<group>"; };
+		185ECC2F2DCF3AF60038D32A /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		185ECC312DCF3B190038D32A /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		185ECC342DCF3B9D0038D32A /* MatchDistanceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDistanceSheet.swift; sourceTree = "<group>"; };
+		185ECC362DCF3BCE0038D32A /* MeetingTimeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingTimeSheet.swift; sourceTree = "<group>"; };
+		185ECC382DCF3BEB0038D32A /* NotificationsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSheet.swift; sourceTree = "<group>"; };
+		185ECC3A2DCF3BF80038D32A /* ThemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSheet.swift; sourceTree = "<group>"; };
+		185ECC3C2DCF3C090038D32A /* LanguageSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSheet.swift; sourceTree = "<group>"; };
+		185ECC3E2DCF3EE60038D32A /* EditPreferencesFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferencesFlow.swift; sourceTree = "<group>"; };
 		1860DC9E2DC5BE8400D14B94 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakingViewModel.swift; sourceTree = "<group>"; };
 		1860DCA42DC5D55A00D14B94 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -223,6 +237,7 @@
 				184E6F182DCBFBA500CE3057 /* MatchRequestModel.swift */,
 				188C3EDF2DC5E5D0000C92FA /* MessageModel.swift */,
 				1869EC622DCDADF700FC24B3 /* OnboardingData.swift */,
+				185ECC312DCF3B190038D32A /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,6 +245,7 @@
 		1843631B2DBDBF1F00F7FDBD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				185ECC332DCF3B8C0038D32A /* Settings */,
 				1869EC5F2DCDAD9300FC24B3 /* OnboardingFlo */,
 				184363212DBDBF6A00F7FDBD /* WelcomeView.swift */,
 				184363252DBDC18F00F7FDBD /* HomeView.swift */,
@@ -245,7 +261,6 @@
 				188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */,
 				184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */,
 				1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */,
-				1843633D2DBDC4BE00F7FDBD /* CafeDetailsView.swift */,
 				1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */,
 				180A16E82DC20330003D8D6F /* LoginView.swift */,
 				180A16F22DC20D6E003D8D6F /* SignUpView.swift */,
@@ -294,6 +309,7 @@
 				184E6F1E2DCBFC2000CE3057 /* MatchRequestSender.swift */,
 				1869EC582DCD70EF00FC24B3 /* LocationManager.swift */,
 				185ECC2D2DCF059E0038D32A /* LikeService.swift */,
+				185ECC2F2DCF3AF60038D32A /* SettingsManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -304,6 +320,18 @@
 				1843631F2DBDBF5800F7FDBD /* Colors.swift */,
 			);
 			path = "Colors+Assets";
+			sourceTree = "<group>";
+		};
+		185ECC332DCF3B8C0038D32A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				185ECC342DCF3B9D0038D32A /* MatchDistanceSheet.swift */,
+				185ECC362DCF3BCE0038D32A /* MeetingTimeSheet.swift */,
+				185ECC382DCF3BEB0038D32A /* NotificationsSheet.swift */,
+				185ECC3A2DCF3BF80038D32A /* ThemeSheet.swift */,
+				185ECC3C2DCF3C090038D32A /* LanguageSheet.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		1869EC5F2DCDAD9300FC24B3 /* OnboardingFlo */ = {
@@ -317,6 +345,7 @@
 				1869EC6C2DCDAFA200FC24B3 /* ChessPersonaView.swift */,
 				1869EC6E2DCDB3F100FC24B3 /* CoffeeOrderView.swift */,
 				1869EC702DCDB3FE00FC24B3 /* MatchSettingView.swift */,
+				185ECC3E2DCF3EE60038D32A /* EditPreferencesFlow.swift */,
 			);
 			path = OnboardingFlo;
 			sourceTree = "<group>";
@@ -469,6 +498,8 @@
 				184363242DBDC16C00F7FDBD /* OnboardingView.swift in Sources */,
 				188C3F222DC6CBC1000C92FA /* StartupFixManager.swift in Sources */,
 				184363342DBDC2FA00F7FDBD /* MatchHistoryView.swift in Sources */,
+				185ECC3F2DCF3EE60038D32A /* EditPreferencesFlow.swift in Sources */,
+				185ECC372DCF3BCE0038D32A /* MeetingTimeSheet.swift in Sources */,
 				184363222DBDBF6A00F7FDBD /* WelcomeView.swift in Sources */,
 				184363322DBDC2EE00F7FDBD /* CafeFinderView.swift in Sources */,
 				1869EC5B2DCD733600FC24B3 /* CafeFinder.swift in Sources */,
@@ -481,10 +512,13 @@
 				188C3F2A2DC726B0000C92FA /* SettingsView.swift in Sources */,
 				180A16ED2DC20653003D8D6F /* UserManager.swift in Sources */,
 				188C3F132DC5ED1A000C92FA /* ChatManager.swift in Sources */,
+				185ECC3B2DCF3BF80038D32A /* ThemeSheet.swift in Sources */,
 				188C3F282DC7197D000C92FA /* LeaderboardPlayer.swift in Sources */,
 				188C3F1B2DC5F80D000C92FA /* Message.swift in Sources */,
+				185ECC302DCF3AF60038D32A /* SettingsManager.swift in Sources */,
 				184E6F192DCBFBA500CE3057 /* MatchRequestModel.swift in Sources */,
 				188C3EDC2DC5E2FD000C92FA /* ChatModel.swift in Sources */,
+				185ECC3D2DCF3C090038D32A /* LanguageSheet.swift in Sources */,
 				184363282DBDC1E100F7FDBD /* MatchmakingView.swift in Sources */,
 				1869EC652DCDAF1D00FC24B3 /* PlayStyleView.swift in Sources */,
 				188C3F302DC72921000C92FA /* PhotoPickerView.swift in Sources */,
@@ -494,6 +528,8 @@
 				188C3F2E2DC72912000C92FA /* EditPhotosView.swift in Sources */,
 				1843632E2DBDC26C00F7FDBD /* LeaderboardView.swift in Sources */,
 				1860DCA32DC5D11000D14B94 /* MatchmakingViewModel.swift in Sources */,
+				185ECC352DCF3B9D0038D32A /* MatchDistanceSheet.swift in Sources */,
+				185ECC322DCF3B190038D32A /* SettingsModel.swift in Sources */,
 				184363402DBDC4C800F7FDBD /* GhostModeView.swift in Sources */,
 				188C3EE02DC5E5D0000C92FA /* MessageModel.swift in Sources */,
 				1869EC612DCDADB100FC24B3 /* OnboardingViewModel.swift in Sources */,
@@ -502,7 +538,6 @@
 				184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */,
 				188C3F262DC70E27000C92FA /* CafeModel.swift in Sources */,
 				188C3F192DC5F7AE000C92FA /* ChatDetailViewModel.swift in Sources */,
-				1843633E2DBDC4BE00F7FDBD /* CafeDetailsView.swift in Sources */,
 				185ECC2A2DCE446F0038D32A /* SettingsSheets.swift in Sources */,
 				185ECC2C2DCF00810038D32A /* MatchSuccessView.swift in Sources */,
 				185ECC2E2DCF059E0038D32A /* LikeService.swift in Sources */,
@@ -523,6 +558,7 @@
 				188C3F1D2DC60AA4000C92FA /* ChatSummary.swift in Sources */,
 				1843632A2DBDC22A00F7FDBD /* ProfileView.swift in Sources */,
 				180A16E92DC20330003D8D6F /* LoginView.swift in Sources */,
+				185ECC392DCF3BEB0038D32A /* NotificationsSheet.swift in Sources */,
 				188C3F152DC5ED59000C92FA /* ChatListView.swift in Sources */,
 				184363202DBDBF5800F7FDBD /* Colors.swift in Sources */,
 			);

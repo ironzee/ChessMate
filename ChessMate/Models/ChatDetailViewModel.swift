@@ -4,6 +4,13 @@
 //
 //  Created by Zulfiqur on 5/3/25.
 //
+//
+//  ChatDetailViewModel.swift
+//  ChessMate
+//
+//  Created by Zulfiqur on 5/3/25.
+//
+
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -14,6 +21,7 @@ class ChatDetailViewModel: ObservableObject {
     @Published var otherUserName: String = ""
     @Published var otherUserELO: Int = 0
     @Published var otherUserResponseTime: String = "Usually responds in 5 min" // mock for now
+    @Published var otherUserProfilePic: String? = nil // ✅ Added
 
     private let db = Firestore.firestore()
     private var listener: ListenerRegistration?
@@ -30,7 +38,6 @@ class ChatDetailViewModel: ObservableObject {
         self.otherUserId = otherUserId
         listenForMessages()
         fetchOtherUserProfile()
-
     }
 
     deinit {
@@ -51,17 +58,23 @@ class ChatDetailViewModel: ObservableObject {
                 self.messages = documents.compactMap { try? $0.data(as: Message.self) }
             }
     }
+
     func fetchOtherUserProfile() {
         let ref = Firestore.firestore().collection("users").document(otherUserId)
         ref.getDocument { snapshot, error in
             if let data = snapshot?.data() {
                 self.otherUserName = data["name"] as? String ?? "Unknown"
                 self.otherUserELO = data["elo"] as? Int ?? 0
-                // Optional: if you want to support dynamic response time
                 self.otherUserResponseTime = data["responseTime"] as? String ?? "Usually responds in 5 min"
+
+                // ✅ Pull first profile photo if available
+                if let urls = data["photoURLs"] as? [String], !urls.isEmpty {
+                    self.otherUserProfilePic = urls[0]
+                }
             }
         }
     }
+
     func sendMessage() {
         guard !newMessage.trimmingCharacters(in: .whitespaces).isEmpty else { return }
 

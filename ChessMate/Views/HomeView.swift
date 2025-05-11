@@ -14,7 +14,6 @@
 //
 //  Created by Zulfiqur on 4/26/25.
 //
-
 import SwiftUI
 import MapKit
 
@@ -25,13 +24,13 @@ struct HomeView: View {
 
     @StateObject private var locationManager = LocationManager()
     @StateObject private var cafeFinder = CafeFinder()
-    @StateObject private var matchRequestVM = MatchRequestViewModel() // ✅ Inject match request VM
+    @StateObject private var matchRequestVM = MatchRequestViewModel()
 
     var body: some View {
         ScrollView {
-            Spacer()
             VStack(alignment: .leading, spacing: 24) {
-                HStack {
+                // Header
+                HStack(spacing: 16) {
                     Label("ChessMate", systemImage: "crown.fill")
                         .font(.title2.bold())
                         .foregroundColor(.espressoBrown)
@@ -39,21 +38,12 @@ struct HomeView: View {
                     Spacer()
 
                     Button(action: {
-                        path.append(AppScreen.matchRequests)
-                    }) {
-                        Image(systemName: "bell.fill")
-                            .foregroundColor(.espressoBrown)
-                            .padding(10)
-                            .background(Color.goldenTan.opacity(0.3))
-                            .clipShape(Circle())
-                    }
-                    Button(action: {
                         path.append(AppScreen.notificationCenter)
                     }) {
                         Image(systemName: "bell.fill")
                             .foregroundColor(.espressoBrown)
                             .padding(10)
-                            .background(Color.goldenTan.opacity(0.3))
+                            .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
 
@@ -76,8 +66,9 @@ struct HomeView: View {
                                 Image(systemName: "person.crop.circle.fill")
                                     .resizable()
                                     .foregroundColor(.gray)
+                                    .scaledToFit()
                             }
-                            .frame(width: 36, height: 36)
+                            .frame(width: 40, height: 40)
                             .clipShape(Circle())
                         } else {
                             Image(systemName: "person.crop.circle.fill")
@@ -89,59 +80,76 @@ struct HomeView: View {
                 }
                 .padding(.horizontal)
 
-                VStack(alignment: .leading, spacing: 8) {
+                // Hero Card
+                VStack(alignment: .leading, spacing: 12) {
                     Text("Checkmate or Soulmate?")
                         .font(.title2.bold())
                         .foregroundColor(.espressoBrown)
 
-                    Text("Coffee, conversation, and clever moves awaits...")
+                    Text("Coffee, conversation, and clever moves awaits…")
                         .foregroundColor(.espressoBrown.opacity(0.4))
 
                     Button(action: {
                         path.append(AppScreen.matchmaking)
                     }) {
-                        Text("Start Matching❤️")
+                        Text("Start Matching ❤️")
+                            .fontWeight(.semibold)
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color.espressoBrown)
                             .foregroundColor(.creamWhite)
-                            .cornerRadius(14)
+                            .cornerRadius(18)
                     }
                 }
                 .padding()
-                .background(Color.goldenTan.opacity(0.4))
-                .cornerRadius(20)
+                .background(.ultraThinMaterial)
+                .cornerRadius(24)
+                .shadow(radius: 6)
                 .padding(.horizontal)
 
-                Text("Active Matches")
-                    .font(.headline)
-                    .foregroundColor(.espressoBrown)
-                    .padding(.horizontal)
+                // Matches
+                Button(action: {
+                    path.append(AppScreen.matchRequests)
+                }, label: {
+                    Text("Active Matches")
+                        .font(.headline)
+                        .foregroundColor(.espressoBrown)
+                        .padding(.horizontal)                })
+               
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(matchRequestVM.confirmedMatches) { request in
-                            MatchCardView(request: request)
+                            MatchCard(request: request)
                         }
                     }
                     .padding(.horizontal)
                 }
 
-                Text("Chess-Friendly Cafés")
-                    .font(.headline)
-                    .foregroundColor(.espressoBrown)
-                    .padding(.horizontal)
+                // Cafés
+                Button(action: {
+                    path.append(AppScreen.cafeFinder)
+                }) {
+                    Text("Chess-Friendly Cafés")
+                        .font(.headline)
+                        .foregroundColor(.espressoBrown)
+                        .padding(.horizontal)
+                }
 
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                    ForEach(cafeFinder.cafes) { cafe in
-                        CafeCardView(cafe: cafe) {
-                            path.append(AppScreen.cafeFinderWithCafe(cafe))
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(cafeFinder.cafes) { cafe in
+                            CafeCardView(cafe: cafe) {
+                                path.append(AppScreen.cafeFinderWithCafe(cafe))
+                            }
+                            .frame(width: 240)
                         }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
 
-                VStack(alignment: .leading, spacing: 8) {
+                // Leaderboard
+                VStack(alignment: .leading, spacing: 12) {
                     Button(action: {
                         path.append(AppScreen.leaderboard)
                     }) {
@@ -156,17 +164,20 @@ struct HomeView: View {
                         LeaderboardRow(rank: 3, name: "David L.", elo: 1720)
                     }
                     .padding()
-                    .background(Color.lightCoffeeGray)
-                    .cornerRadius(12)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(18)
+                    .shadow(radius: 4)
                 }
                 .padding(.horizontal)
             }
             .padding(.vertical)
         }
-        .navigationBarBackButtonHidden(true)
         .padding(.top, 70)
-        .background(Color.creamWhite)
+        .background(
+            LinearGradient(colors: [Color.creamWhite, Color.goldenTan.opacity(0.15)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             authManager.refreshCurrentUser()
             if let userId = authManager.currentUser?.uid {
@@ -181,68 +192,72 @@ struct HomeView: View {
             cafeFinder.searchCafes(near: location)
         }
     }
+}
 
-    // ✅ Format time from timestamp
-    func formatDate(_ timestamp: TimeInterval) -> String {
-        let date = Date(timeIntervalSince1970: timestamp)
+// MARK: - MatchCard
+struct MatchCard: View {
+    var request: MatchRequestModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: "person.fill")
+                Text("vs")
+                Image(systemName: "person.fill")
+            }
+            .font(.headline)
+
+            Text(request.cafeName)
+                .font(.subheadline)
+                .foregroundColor(.espressoBrown)
+
+            Text(formatDate(from: request.suggestedTime))
+                .font(.caption)
+                .foregroundColor(.espressoBrown.opacity(0.6))
+
+            Text(request.status.capitalized)
+                .font(.caption2)
+                .padding(6)
+                .background(request.status.lowercased() == "confirmed" ? Color.deepForestGreen : Color.gray)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+        }
+        .padding()
+        .frame(width: 220)
+        .background(.ultraThinMaterial)
+        .cornerRadius(18)
+        .shadow(radius: 4)
+    }
+
+    func formatDate(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
+
 }
 
-struct MatchCard: View {
-    var opponent: String
-    var time: String
-    var status: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Image(systemName: "person.crop.circle.fill")
-                Text("vs")
-                Image(systemName: "person.crop.circle")
-            }
-            .font(.title2)
-
-            Label(opponent, systemImage: "mappin.and.ellipse")
-            Label(time, systemImage: "clock")
-
-            Text(status)
-                .font(.caption)
-                .padding(6)
-                .background(status == "Confirmed" ? Color.deepForestGreen : Color.gray)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-        }
-        .padding()
-        .frame(width: 200)
-        .background(Color.creamWhite)
-        .cornerRadius(12)
-        .shadow(radius: 1)
-    }
-}
-
+// MARK: - CafeCardView
 struct CafeCardView: View {
     let cafe: Cafe
     let onTap: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image("cafe1") // Replace with real image if you have café images
+            Image("cafe1") // Replace if dynamic
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 120)
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .cornerRadius(10)
+                .cornerRadius(12)
 
             Text(cafe.name)
                 .font(.headline)
                 .foregroundColor(.espressoBrown)
 
-            Text("\(Int.random(in: 6...20)) players") // Mock player count
+            Text("\(Int.random(in: 6...20)) players")
                 .font(.subheadline)
                 .foregroundColor(.gray)
 
@@ -251,18 +266,16 @@ struct CafeCardView: View {
                 .foregroundColor(.espressoBrown.opacity(0.6))
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(12)
-        .shadow(radius: 2)
+        .background(.ultraThinMaterial)
+        .cornerRadius(18)
+        .shadow(radius: 4)
         .onTapGesture {
             onTap()
         }
     }
 }
 
-
-
-
+// MARK: - LeaderboardRow
 struct LeaderboardRow: View {
     var rank: Int
     var name: String
@@ -293,7 +306,8 @@ struct LeaderboardRow: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(Color.lightCoffeeGray.opacity(0.4))
+        .background(.ultraThinMaterial)
         .cornerRadius(12)
+        .shadow(radius: 2)
     }
 }

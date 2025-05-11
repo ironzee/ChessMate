@@ -14,22 +14,38 @@ struct ChatDetailView: View {
     let requestSender = MatchRequestSender()
 
     var body: some View {
+        
         VStack(spacing: 0) {
-            HStack {
-                Image("person1")
-                    .resizable()
-                    .frame(width: 40, height: 40)
+            // Top Bar
+            HStack(spacing: 12) {
+                if let urlString = viewModel.otherUserProfilePic,
+                   let url = URL(string: urlString) {
+                    AsyncImage(url: url) { image in
+                        image.resizable().scaledToFill()
+                    } placeholder: {
+                        Circle().fill(Color.gray.opacity(0.3))
+                    }
+                    .frame(width: 44, height: 44)
                     .clipShape(Circle())
+                } else {
+                    Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 44, height: 44)
+                        .overlay(
+                            Text(viewModel.otherUserName.prefix(1))
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                        )
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(viewModel.otherUserName)
+                    Text("\(viewModel.otherUserELO) ELO")
                         .font(.headline)
                         .foregroundColor(.white)
-                    Text("\(viewModel.otherUserELO) ELO • \(viewModel.otherUserResponseTime)")
+                    Text("Usually responds in \(viewModel.otherUserResponseTime)")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
-
 
                 Spacer()
 
@@ -37,14 +53,16 @@ struct ChatDetailView: View {
                     .foregroundColor(.white)
             }
             .padding()
-            .background(Color.espressoBrown)
+            .background(.ultraThinMaterial)
+            .background(BlurView(style: .systemUltraThinMaterialDark))
+            .shadow(radius: 1)
 
+            // Messages
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.messages) { message in
                             MessageBubble(message: message, currentUserId: viewModel.currentUserId)
-                                .padding(.horizontal)
                                 .id(message.id)
                         }
                     }
@@ -59,64 +77,74 @@ struct ChatDetailView: View {
                 }
             }
 
-            Divider()
+            // Input + Match Button
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    TextField("Type a message...", text: $viewModel.newMessage)
+                        .padding(10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
 
-            // Input Bar
-            HStack(spacing: 12) {
-                TextField("Type a message...", text: $viewModel.newMessage)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+                        // Optional: image sending
+                    }) {
+                        Image(systemName: "camera")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(Color.deepForestGreen)
+                            .clipShape(Circle())
+                    }
+
+                    Button(action: {
+                        viewModel.sendMessage()
+                    }) {
+                        Image(systemName: "paperplane.fill")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(Color.deepForestGreen)
+                            .clipShape(Circle())
+                    }
+                }
+
                 Button(action: {
                     requestSender.sendRequest(
-                        from: viewModel.currentUserId, 
+                        from: viewModel.currentUserId,
                         senderName: viewModel.currentUserName,
                         to: viewModel.otherUserId,
                         chatId: viewModel.chatId,
                         cafeName: "The Chess & Bean Café",
-                        suggestedTime: Date().addingTimeInterval(3600) // 1 hour from now
+                        suggestedTime: Date().addingTimeInterval(3600)
                     ) { success in
                         if success {
-                            print("✅ Request sent from chat!")
+                            print("✅ Match request sent from chat!")
                         }
                     }
                 }) {
                     Text("Challenge to a Match")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding()
                         .frame(maxWidth: .infinity)
+                        .padding()
                         .background(Color.goldenTan)
                         .cornerRadius(16)
-                        .padding(.horizontal)
-                }
-                .padding(.top, 8)
-
-                Button(action: {
-                    // Optionally allow image sending later
-                }) {
-                    Image(systemName: "camera")
-                        .font(.title2)
-                        .foregroundColor(.deepForestGreen)
-                }
-
-                Button(action: {
-                    viewModel.sendMessage()
-                }) {
-                    Image(systemName: "paperplane.fill")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .background(Color.deepForestGreen)
-                        .clipShape(Circle())
                 }
             }
             .padding()
+            .background(Color.creamWhite.opacity(0.5))
         }
-        .background(Color.creamWhite.ignoresSafeArea())
+        .background(
+            LinearGradient(colors: [Color.espressoBrown, Color.black], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+        )
         .onAppear {
             print("🔁 Loading chat with ID: \(viewModel.chatId)")
         }
     }
 }
+
+// MARK: - Message Bubble
 
 struct MessageBubble: View {
     let message: Message
@@ -153,4 +181,18 @@ struct MessageBubble: View {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
+}
+
+// MARK: - BlurView Helper
+
+import UIKit
+
+struct BlurView: UIViewRepresentable {
+    var style: UIBlurEffect.Style
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }

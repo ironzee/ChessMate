@@ -24,7 +24,7 @@ struct WelcomeView: View {
             Spacer()
 
             VStack(spacing: 12) {
-                Image(systemName: "knight")
+                Image("knight")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 72, height: 72)
@@ -65,47 +65,47 @@ struct WelcomeView: View {
                     .cornerRadius(14)
                 }
 
-                Button(action: {
-                    // TODO: Apple sign in
-                }) {
-                    HStack {
-                        Image(systemName: "apple.logo")
-                        Text("Continue with Apple")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.deepForestGreen)
-                    .foregroundColor(.creamWhite)
-                    .cornerRadius(14)
-                }
-
-                Button(action: {
-                    // TODO: Google sign in
-                }) {
-                    HStack {
-                        Image(systemName: "g.circle.fill")
-                        Text("Continue with Google")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.deepForestGreen)
-                    .foregroundColor(.creamWhite)
-                    .cornerRadius(14)
-                }
-
-                Button(action: {
-                    // TODO: Facebook sign in
-                }) {
-                    HStack {
-                        Image(systemName: "f.circle.fill")
-                        Text("Continue with Facebook")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.deepForestGreen)
-                    .foregroundColor(.creamWhite)
-                    .cornerRadius(14)
-                }
+//                Button(action: {
+//                    // TODO: Apple sign in
+//                }) {
+//                    HStack {
+//                        Image(systemName: "apple.logo")
+//                        Text("Continue with Apple")
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.deepForestGreen)
+//                    .foregroundColor(.creamWhite)
+//                    .cornerRadius(14)
+//                }
+//
+//                Button(action: {
+//                    // TODO: Google sign in
+//                }) {
+//                    HStack {
+//                        Image(systemName: "g.circle.fill")
+//                        Text("Continue with Google")
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.deepForestGreen)
+//                    .foregroundColor(.creamWhite)
+//                    .cornerRadius(14)
+//                }
+//
+//                Button(action: {
+//                    // TODO: Facebook sign in
+//                }) {
+//                    HStack {
+//                        Image(systemName: "f.circle.fill")
+//                        Text("Continue with Facebook")
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.deepForestGreen)
+//                    .foregroundColor(.creamWhite)
+//                    .cornerRadius(14)
+//                }
 
                 HStack {
                     Rectangle()

@@ -79,7 +79,11 @@ struct UserModel: Identifiable, Codable {
         }
 
         photoURLs = (try? container.decode([String].self, forKey: .photoURLs)) ?? []
-        onboardingData = try? container.decode(OnboardingData.self, forKey: .onboardingData)
+        if let raw = try? container.decodeIfPresent([String: String].self, forKey: .onboardingData) {
+            onboardingData = OnboardingData.fromMap(raw)
+        } else {
+            onboardingData = try? container.decodeIfPresent(OnboardingData.self, forKey: .onboardingData)
+        }
     }
 }
 
@@ -128,3 +132,19 @@ struct OnboardingData: Codable {
     }
 }
 
+extension OnboardingData {
+    static func fromMap(_ map: [String: Any]?) -> OnboardingData {
+        var data = OnboardingData()
+
+        data.playStyle = map?["playStyle"] as? String ?? ""
+        data.openingMove = map?["openingMove"] as? String ?? ""
+        data.cafeStyle = map?["cafeStyle"] as? String ?? ""
+        data.coffeeOrder = map?["coffeeOrder"] as? String ?? ""
+        data.matchSetting = map?["matchSetting"] as? String ?? ""
+        data.bringBuddy = map?["bringBuddy"] as? Bool ?? false
+        data.chessPersona = map?["chessPersona"] as? String ?? ""
+        data.chessPersonaReason = map?["chessPersonaReason"] as? String ?? ""
+
+        return data
+    }
+}

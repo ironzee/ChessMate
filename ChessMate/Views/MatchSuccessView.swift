@@ -103,7 +103,7 @@ struct ProfileBubble: View {
             }
 
             // Optional chess icon overlay
-            Image("FRAME01")
+            Image("FRAME03")
                 .foregroundColor(.goldenTan)
                 .padding(1)
                 .clipShape(Circle())

@@ -67,7 +67,7 @@ struct MatchProfileCard: View {
                     .foregroundColor(.gray)
             }
 
-            Label("Opening: \(player.favoriteOpening)", systemImage: "chessboard")
+            Label("Opening: \(player.favoriteOpening)", image: "Openingpic")
             Label("Style: \(player.playstyle)", systemImage: "wand.and.stars")
             Label("Time Control: \(player.timeControl)", systemImage: "clock")
             Label("Café: \(player.favoriteCafe)", systemImage: "cup.and.saucer")

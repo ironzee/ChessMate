@@ -14,11 +14,14 @@
 import SwiftUI
 import FirebaseAuth
 
+
+
 struct SettingsView: View {
     @Binding var path: NavigationPath
     @Binding var isLoggedIn: Bool
     @ObservedObject var authManager: AuthManager
-    
+    @EnvironmentObject var settingsManager: SettingsManager
+
     @State private var selectedSheet: SettingsSheetType?
 
     var body: some View {
@@ -47,6 +50,7 @@ struct SettingsView: View {
                         Text(authManager.currentUser?.name ?? "User")
                             .font(.headline)
                             .foregroundColor(.espressoBrown)
+
                         Text("ELO Rating: \(authManager.currentUser?.elo ?? 1850)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
@@ -64,14 +68,16 @@ struct SettingsView: View {
                     .cornerRadius(12)
                 }
                 .padding()
-                .background(Color.white)
+                .background(.ultraThinMaterial)
                 .cornerRadius(16)
+                .shadow(radius: 4)
                 .padding(.horizontal)
 
                 // MARK: - Chess Settings
                 SettingsCard(title: "Chess Settings", items: [
                     ("chessboard", "Preferred Openings", .preferredOpenings),
-                    ("clock", "Time Controls", .timeControls)
+                    ("clock", "Time Controls", .timeControls),
+                    ("arrow.triangle.2.circlepath", "Edit My Preferences", .editPreferences)
                 ], selectedSheet: $selectedSheet)
 
                 // MARK: - Match Settings
@@ -102,6 +108,7 @@ struct SettingsView: View {
                     Text("Unlock exclusive features")
                         .font(.subheadline)
                         .foregroundColor(.gray)
+
                     Button("Upgrade to Premium") {
                         // Action TBD
                     }
@@ -112,8 +119,9 @@ struct SettingsView: View {
                     .cornerRadius(14)
                 }
                 .padding()
-                .background(Color.white)
+                .background(.ultraThinMaterial)
                 .cornerRadius(16)
+                .shadow(radius: 4)
                 .padding(.horizontal)
 
                 // MARK: - Logout + Delete
@@ -123,10 +131,11 @@ struct SettingsView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.white)
+                .background(.ultraThinMaterial)
                 .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.deepForestGreen))
                 .foregroundColor(.deepForestGreen)
                 .cornerRadius(14)
+                .shadow(radius: 4)
                 .padding(.horizontal)
 
                 Button("Delete Account") {
@@ -136,6 +145,9 @@ struct SettingsView: View {
                 .padding(.bottom)
             }
             .padding(.top)
+        }
+        .onAppear {
+            settingsManager.fetchSettings()
         }
         .background(Color.creamWhite.ignoresSafeArea())
         .navigationBarBackButtonHidden(false)
@@ -151,10 +163,12 @@ struct SettingsView: View {
             case .darkMode: ThemeSheet()
             case .helpCenter: HelpCenterSheet()
             case .privacyPolicy: PrivacyPolicySheet()
+            case .editPreferences: EditPreferencesFlow(path: $path)
             }
         }
     }
 }
+
 
 // MARK: - Sheet Type Enum
 enum SettingsSheetType: Identifiable {
@@ -170,39 +184,52 @@ enum SettingsSheetType: Identifiable {
     case darkMode
     case helpCenter
     case privacyPolicy
+    case editPreferences
+
 }
 
-// MARK: - Reusable Card View
 struct SettingsCard: View {
     let title: String
     let items: [(String, String, SettingsSheetType)]
     @Binding var selectedSheet: SettingsSheetType?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(title)
                 .font(.footnote.bold())
                 .foregroundColor(.gray)
                 .padding(.horizontal)
 
-            ForEach(items, id: \.1) { icon, label, sheet in
-                Button(action: { selectedSheet = sheet }) {
-                    HStack {
-                        Image(systemName: icon)
-                            .foregroundColor(.espressoBrown)
-                        Text(label)
-                            .foregroundColor(.espressoBrown)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
+            VStack(spacing: 0) {
+                ForEach(items.indices, id: \.self) { index in
+                    let item = items[index]
+                    Button(action: { selectedSheet = item.2 }) {
+                        HStack(spacing: 12) {
+                            Image(systemName: item.0)
+                                .foregroundColor(.espressoBrown)
+
+                            Text(item.1)
+                                .foregroundColor(.espressoBrown)
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.vertical, 14)
+                        .padding(.horizontal)
                     }
-                    .padding()
+
+                    if index != items.count - 1 {
+                        Divider()
+                            .padding(.leading, 44)
+                    }
                 }
-                Divider()
             }
+            .background(.ultraThinMaterial)
+            .cornerRadius(16)
+            .shadow(radius: 4)
         }
-        .background(Color.white)
-        .cornerRadius(16)
         .padding(.horizontal)
     }
 }

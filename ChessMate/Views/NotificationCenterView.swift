@@ -5,8 +5,8 @@
 //  Created by Zulfiqur on 4/26/25.
 //
 
-import Foundation
 import SwiftUI
+import Foundation
 
 struct NotificationCenterView: View {
     @Binding var path: NavigationPath
@@ -19,12 +19,25 @@ struct NotificationCenterView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                Text("Notifications")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.espressoBrown)
-                    .padding(.horizontal)
+            VStack(alignment: .leading, spacing: 24) {
+                // Top Bar
+                HStack {
+                    Button(action: {
+                        path.removeLast()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title3)
+                            .foregroundColor(.espressoBrown)
+                    }
+
+                    Text("Notifications")
+                        .font(.title.bold())
+                        .foregroundColor(.espressoBrown)
+                        .padding(.leading, 8)
+
+                    Spacer()
+                }
+                .padding(.horizontal)
 
                 // Filter Tabs
                 HStack(spacing: 12) {
@@ -45,22 +58,69 @@ struct NotificationCenterView: View {
                 }
                 .padding(.horizontal)
 
-                Text("Today")
-                    .font(.headline)
-                    .foregroundColor(.espressoBrown)
-                    .padding(.horizontal)
+                // New Profile Matches (Static UI for now)
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("New Profile Matches")
+                        .font(.headline)
+                        .foregroundColor(.espressoBrown)
+                        .padding(.horizontal)
 
-                Group {
-                    switch selectedFilter {
-                    case "All": allNotificationsView
-                    case "Matches": matchNotificationsView
-                    case "Reminders": reminderNotificationsView
-                    case "Updates": updateNotificationsView
-                    default: allNotificationsView
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(["Alex", "Sam", "Jordan", "Taylor", "Casey"], id: \.self) { name in
+                                VStack {
+                                    Circle()
+                                        .fill(Color.gray.opacity(0.3))
+                                        .frame(width: 56, height: 56)
+                                        .overlay(Text(String(name.prefix(1))).fontWeight(.bold).foregroundColor(.white))
+                                    Text(name)
+                                        .font(.caption)
+                                        .foregroundColor(.espressoBrown)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                // New Messages Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("New Messages")
+                        .font(.headline)
+                        .foregroundColor(.espressoBrown)
+                        .padding(.horizontal)
+
+                    ForEach(mockNewMessages, id: \.id) { message in
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text(message.senderName)
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                Spacer()
+                                Text(message.timeAgo)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+
+                            Text(message.preview)
+                                .font(.subheadline)
+                                .foregroundColor(.espressoBrown)
+                        }
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(18)
+                        .shadow(radius: 2)
+                        .padding(.horizontal)
                     }
                 }
 
-                Spacer(minLength: 40)
+                // Dynamic Section
+                switch selectedFilter {
+                case "All": allNotificationsView
+                case "Matches": matchNotificationsView
+                case "Reminders": reminderNotificationsView
+                case "Updates": updateNotificationsView
+                default: allNotificationsView
+                }
 
                 if selectedFilter == "All" || selectedFilter == "Matches" {
                     Text("Yesterday")
@@ -70,18 +130,24 @@ struct NotificationCenterView: View {
 
                     matchHistoryView
                 }
+
+                Spacer(minLength: 40)
             }
+            .padding(.top)
         }
         .onAppear {
             guard !currentUserId.isEmpty else {
                 print("❌ currentUserId is empty. Skipping listener setup.")
                 return
             }
-            print("👤 currentUserId loaded in NotificationCenterView: \(currentUserId)")
             viewModel.startListening(for: currentUserId)
         }
         .background(Color.creamWhite.ignoresSafeArea())
+        .navigationBarBackButtonHidden(true)
+
     }
+
+    // MARK: - Filtered Sections
 
     var allNotificationsView: some View {
         VStack(spacing: 16) {
@@ -120,24 +186,20 @@ struct NotificationCenterView: View {
         .padding(.horizontal)
     }
 
-    // MARK: - Cards
+    // MARK: - Card Components
 
     func challengeCard(for request: MatchRequestModel) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .top) {
-                Image("profile_sample")
-                    .resizable()
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top, spacing: 12) {
+                Circle()
+                    .fill(Color.gray.opacity(0.3))
                     .frame(width: 44, height: 44)
-                    .clipShape(Circle())
+                    .overlay(Text(String(request.name?.prefix(1) ?? "?")).foregroundColor(.white))
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text("\(request.name ?? "Someone") wants to play chess!")
                             .fontWeight(.semibold)
-                            .onAppear {
-                                print("📄 Rendering match request from: \(request.name), receiver: \(request.receiverId)")
-                            }
-
                         Spacer()
                         if let createdAt = request.createdAt {
                             Text(relativeTime(createdAt))
@@ -146,7 +208,7 @@ struct NotificationCenterView: View {
                         }
                     }
 
-                    HStack(spacing: 4) {
+                    HStack(spacing: 6) {
                         Image(systemName: "cup.and.saucer")
                         Text("Suggested: \(request.cafeName), \(formattedDate(request.suggestedTime))")
                     }
@@ -163,27 +225,29 @@ struct NotificationCenterView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.deepForestGreen)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .cornerRadius(12)
 
                 Button("Decline") {
-                    // Placeholder for decline
+                    // Future: handle decline
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Color.lightCoffeeGray)
                 .foregroundColor(.espressoBrown)
-                .cornerRadius(10)
+                .cornerRadius(12)
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 15).stroke(Color.blue, lineWidth: 2))
+        .background(.ultraThinMaterial)
+        .cornerRadius(20)
+        .shadow(radius: 2)
         .padding(.horizontal)
     }
 
     var upcomingMatchCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Label("Upcoming match with Marcus", systemImage: "chessboard")
+                Text("Upcoming match with Marcus")
                     .font(.headline)
                     .foregroundColor(.espressoBrown)
                 Spacer()
@@ -196,24 +260,24 @@ struct NotificationCenterView: View {
                 .font(.subheadline)
                 .foregroundColor(.espressoBrown)
 
-            Image("map_sample")
-                .resizable()
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.gray.opacity(0.2))
                 .frame(height: 120)
-                .cornerRadius(10)
+                .overlay(Text("🗺 Map Preview").foregroundColor(.gray))
 
             Text("1 hour until match")
                 .font(.footnote)
                 .foregroundColor(.deepForestGreen)
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(15)
-        .shadow(radius: 1)
+        .background(.ultraThinMaterial)
+        .cornerRadius(20)
+        .shadow(radius: 2)
         .padding(.horizontal)
     }
 
     var matchResultCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Label("Match Result: Victory!", systemImage: "crown.fill")
                     .font(.headline)
@@ -226,6 +290,7 @@ struct NotificationCenterView: View {
 
             Text("You won against David at The Chess Café")
                 .font(.subheadline)
+                .foregroundColor(.espressoBrown)
 
             HStack {
                 Image(systemName: "checkmark.circle.fill")
@@ -236,13 +301,13 @@ struct NotificationCenterView: View {
             .foregroundColor(.deepForestGreen)
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(15)
-        .shadow(radius: 1)
+        .background(.ultraThinMaterial)
+        .cornerRadius(20)
+        .shadow(radius: 2)
     }
 
     var reminderCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Label("Reminder: Rate your last match", systemImage: "clock")
                     .font(.headline)
@@ -258,9 +323,10 @@ struct NotificationCenterView: View {
                 .foregroundColor(.espressoBrown)
         }
         .padding()
-        .background(Color.white)
-        .cornerRadius(15)
-        .shadow(radius: 1)
+        .background(.ultraThinMaterial)
+        .cornerRadius(20)
+        .shadow(radius: 2)
+        .padding(.horizontal)
     }
 
     // MARK: - Utilities
@@ -278,3 +344,14 @@ struct NotificationCenterView: View {
         return formatter.string(from: date)
     }
 }
+struct NewMessagePreview: Identifiable {
+    let id = UUID()
+    let senderName: String
+    let preview: String
+    let timeAgo: String
+}
+
+let mockNewMessages: [NewMessagePreview] = [
+    NewMessagePreview(senderName: "Morgan", preview: "Hey, are you free this evening?", timeAgo: "10m ago"),
+    NewMessagePreview(senderName: "Riley", preview: "Thanks for the coffee recommendation!", timeAgo: "25m ago")
+]
