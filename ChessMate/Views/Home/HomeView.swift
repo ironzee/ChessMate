@@ -25,6 +25,7 @@ struct HomeView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var cafeFinder = CafeFinder()
     @StateObject private var matchRequestVM = MatchRequestViewModel()
+    @StateObject private var matchmakingVM = MatchmakingViewModel()
 
     var body: some View {
         ScrollView {
@@ -107,6 +108,71 @@ struct HomeView: View {
                 .shadow(radius: 6)
                 .padding(.horizontal)
 
+                // MARK: - Match Now Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Match Now!")
+                        .font(.title3.bold())
+                        .foregroundColor(.espressoBrown)
+                        .padding(.horizontal)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(matchmakingVM.players) { player in
+                                ZStack(alignment: .topTrailing) {
+                                    VStack(spacing: 10) {
+                                        AsyncImage(url: URL(string: player.photoURLs.first ?? "")) { image in
+                                            image.resizable().scaledToFill()
+                                        } placeholder: {
+                                            Color.gray.opacity(0.2)
+                                        }
+                                        .frame(width: 130, height: 140)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                                        .shadow(radius: 6)
+
+                                        VStack(spacing: 4) {
+                                            Text(player.name)
+                                                .font(.headline)
+                                                .foregroundColor(.espressoBrown)
+
+                                            Text("\(player.elo) ELO")
+                                                .font(.caption)
+                                                .foregroundColor(.gray)
+
+                                            Button(action: {
+                                                // Trigger match logic
+                                            }) {
+                                                Text("Match")
+                                                    .font(.subheadline.bold())
+                                                    .padding(.vertical, 6)
+                                                    .frame(maxWidth: .infinity)
+                                                    .background(Color.deepForestGreen.opacity(0.8))
+                                                    .foregroundColor(.white)
+                                                    .cornerRadius(10)
+                                            }
+                                        }
+                                        .padding(.top, 4)
+                                        .padding(.horizontal)
+                                    }
+                                    .padding(.top)
+                                    .frame(width: 160)
+                                    .background(.ultraThinMaterial).opacity(0.9)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+
+                                    // Small glass badge circle (like status dot)
+                                    Circle()
+                                        .fill(Color.goldenTan.opacity(0.9))
+                                        .frame(width: 12, height: 12)
+                                        .padding(8)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }                
+                .shadow(radius: 6)
+
+
                 // Matches
                 Button(action: {
                     path.append(AppScreen.matchRequests)
@@ -171,6 +237,11 @@ struct HomeView: View {
                 .padding(.horizontal)
             }
             .padding(.vertical)
+        }
+        .onAppear {
+            authManager.refreshCurrentUser()
+            matchmakingVM.fetchPlayers(excludeUID: authManager.currentUser?.uid ?? "")
+            // ...
         }
         .padding(.top, 70)
         .background(

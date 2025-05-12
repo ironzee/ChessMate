@@ -46,8 +46,7 @@ struct NotificationCenterView: View {
                             selectedFilter = filter
                         }) {
                             Text(filter)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 20)
                                 .background(
                                     selectedFilter == filter ? Color.goldenTan : Color.lightCoffeeGray.opacity(0.4)
                                 )

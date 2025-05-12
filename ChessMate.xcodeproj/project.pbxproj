@@ -228,6 +228,9 @@
 		1843631A2DBDBF1500F7FDBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				188C3F1A2DC5F80D000C92FA /* Message.swift */,
+				188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */,
+				1860DCA42DC5D55A00D14B94 /* Player.swift */,
 				188C3EDB2DC5E2FD000C92FA /* ChatModel.swift */,
 				1860DCA22DC5D11000D14B94 /* MatchmakingViewModel.swift */,
 				188C3F182DC5F7AE000C92FA /* ChatDetailViewModel.swift */,
@@ -245,39 +248,19 @@
 		1843631B2DBDBF1F00F7FDBD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				185ECC472DD164780038D32A /* Notifications */,
+				185ECC462DD163F20038D32A /* CafeFinder */,
+				185ECC452DD163B40038D32A /* Leaderboard */,
+				185ECC432DD162E40038D32A /* Home */,
+				185ECC422DD162CA0038D32A /* Authentication */,
+				185ECC412DD162BF0038D32A /* Matching */,
+				185ECC402DD162B70038D32A /* Chat */,
 				185ECC332DCF3B8C0038D32A /* Settings */,
+				185ECC442DD163800038D32A /* Photos */,
 				1869EC5F2DCDAD9300FC24B3 /* OnboardingFlo */,
-				184363212DBDBF6A00F7FDBD /* WelcomeView.swift */,
-				184363252DBDC18F00F7FDBD /* HomeView.swift */,
-				188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */,
-				184363272DBDC1E100F7FDBD /* MatchmakingView.swift */,
-				184363292DBDC22A00F7FDBD /* ProfileView.swift */,
-				1843632B2DBDC24E00F7FDBD /* ChatView.swift */,
-				1860DCA42DC5D55A00D14B94 /* Player.swift */,
-				1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */,
 				1843632F2DBDC28300F7FDBD /* SubmitResultView.swift */,
-				184363312DBDC2EE00F7FDBD /* CafeFinderView.swift */,
-				184363332DBDC2FA00F7FDBD /* MatchHistoryView.swift */,
-				188C3F1C2DC60AA4000C92FA /* ChatSummary.swift */,
-				184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */,
 				1843633B2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift */,
 				1843633F2DBDC4C800F7FDBD /* GhostModeView.swift */,
-				180A16E82DC20330003D8D6F /* LoginView.swift */,
-				180A16F22DC20D6E003D8D6F /* SignUpView.swift */,
-				188C3F1A2DC5F80D000C92FA /* Message.swift */,
-				188C3F122DC5ED1A000C92FA /* ChatManager.swift */,
-				188C3F142DC5ED59000C92FA /* ChatListView.swift */,
-				188C3F162DC5EF31000C92FA /* ChatDetailView.swift */,
-				188C3F292DC726B0000C92FA /* SettingsView.swift */,
-				188C3F2B2DC728CB000C92FA /* ProfilePhotosView.swift */,
-				188C3F2D2DC72912000C92FA /* EditPhotosView.swift */,
-				188C3F342DC84A81000C92FA /* MatchProfileCard.swift */,
-				184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */,
-				184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */,
-				1869EC5D2DCD7FD900FC24B3 /* SuggestMatchView.swift */,
-				185ECC272DCDC8270038D32A /* MatchCardView.swift */,
-				185ECC292DCE446F0038D32A /* SettingsSheets.swift */,
-				185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,13 +308,94 @@
 		185ECC332DCF3B8C0038D32A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				185ECC292DCE446F0038D32A /* SettingsSheets.swift */,
 				185ECC342DCF3B9D0038D32A /* MatchDistanceSheet.swift */,
 				185ECC362DCF3BCE0038D32A /* MeetingTimeSheet.swift */,
+				188C3F292DC726B0000C92FA /* SettingsView.swift */,
 				185ECC382DCF3BEB0038D32A /* NotificationsSheet.swift */,
 				185ECC3A2DCF3BF80038D32A /* ThemeSheet.swift */,
 				185ECC3C2DCF3C090038D32A /* LanguageSheet.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		185ECC402DD162B70038D32A /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				188C3F122DC5ED1A000C92FA /* ChatManager.swift */,
+				1843632B2DBDC24E00F7FDBD /* ChatView.swift */,
+				188C3F162DC5EF31000C92FA /* ChatDetailView.swift */,
+				188C3F142DC5ED59000C92FA /* ChatListView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		185ECC412DD162BF0038D32A /* Matching */ = {
+			isa = PBXGroup;
+			children = (
+				184363272DBDC1E100F7FDBD /* MatchmakingView.swift */,
+				185ECC2B2DCF00810038D32A /* MatchSuccessView.swift */,
+				185ECC272DCDC8270038D32A /* MatchCardView.swift */,
+				184E6F1C2DCBFBFA00CE3057 /* MatchRequestsView.swift */,
+				184E6F162DCBF96500CE3057 /* ChessMatchRequest.swift */,
+				1869EC5D2DCD7FD900FC24B3 /* SuggestMatchView.swift */,
+				188C3F342DC84A81000C92FA /* MatchProfileCard.swift */,
+				184363332DBDC2FA00F7FDBD /* MatchHistoryView.swift */,
+			);
+			path = Matching;
+			sourceTree = "<group>";
+		};
+		185ECC422DD162CA0038D32A /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				180A16E82DC20330003D8D6F /* LoginView.swift */,
+				180A16F22DC20D6E003D8D6F /* SignUpView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		185ECC432DD162E40038D32A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				184363292DBDC22A00F7FDBD /* ProfileView.swift */,
+				184363212DBDBF6A00F7FDBD /* WelcomeView.swift */,
+				184363252DBDC18F00F7FDBD /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		185ECC442DD163800038D32A /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				188C3F2D2DC72912000C92FA /* EditPhotosView.swift */,
+				188C3F2B2DC728CB000C92FA /* ProfilePhotosView.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		185ECC452DD163B40038D32A /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */,
+				1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		185ECC462DD163F20038D32A /* CafeFinder */ = {
+			isa = PBXGroup;
+			children = (
+				184363312DBDC2EE00F7FDBD /* CafeFinderView.swift */,
+			);
+			path = CafeFinder;
+			sourceTree = "<group>";
+		};
+		185ECC472DD164780038D32A /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				184363392DBDC4A900F7FDBD /* NotificationCenterView.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		1869EC5F2DCDAD9300FC24B3 /* OnboardingFlo */ = {
