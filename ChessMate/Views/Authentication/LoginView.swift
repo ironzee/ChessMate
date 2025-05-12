@@ -146,5 +146,6 @@ struct LoginView: View {
         }
         .preferredColorScheme(.light) // 👈 Force Light Mode
     }
+    
        
 }

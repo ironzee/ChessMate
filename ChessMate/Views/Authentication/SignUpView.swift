@@ -18,67 +18,192 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var location = ""
     @State private var errorMessage = ""
+    @State private var isPressed = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
+        ZStack {
+            // Base Background
+            Color.creamWhite.ignoresSafeArea()
 
-            Text("Create Account")
-                .font(.title)
-                .bold()
+            // Bokeh Glow Elements (abstract background lights)
+            Circle()
+                .fill(Color.goldenTan.opacity(0.3))
+                .blur(radius: 80)
+                .offset(x: -140, y: -360)
+
+            Circle()
+                .fill(Color.deepForestGreen.opacity(0.3))
+                .blur(radius: 100)
+                .offset(x: 120, y: -300)
+
+            Circle()
+                .fill(Color.espressoBrown.opacity(0.2))
+                .blur(radius: 90)
+                .offset(x: -100, y: 280)
+
+            // Decorative Chess Pieces
+            Image("piece_queen")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 140)
+                .opacity(0.06)
+                .offset(x: -130, y: -320)
+
+            Image("piece_king")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120)
+                .opacity(0.05)
+                .offset(x: 140, y: -280)
+
+            Image("piece_knight")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60)
+                .opacity(0.05)
+                .offset(x: -100, y: 200)
+
+            VStack(spacing: 20) {
+                // Header
+                HStack(spacing: 8) {
+                    Image("piece_king")
+                    Image( "piece_queen")
+                    Image( "cpiece_king")
+                }
+                .font(.title2)
                 .foregroundColor(.espressoBrown)
 
-            Group {
-                TextField("Full Name", text: $name)
-                TextField("Email", text: $email)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                SecureField("Password", text: $password)
-                SecureField("Confirm Password", text: $confirmPassword)
-                TextField("City / Location", text: $location)
-            }
-            .textFieldStyle(.roundedBorder)
-            .padding(.horizontal)
+                Text("Find Your Perfect Match")
+                    .font(.title.bold())
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.espressoBrown)
 
-            if !errorMessage.isEmpty {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .font(.footnote)
-            }
+                Text("Where Chess Lovers Connect")
+                    .foregroundColor(.deepForestGreen)
 
-            Button("Sign Up") {
-                guard password == confirmPassword else {
-                    errorMessage = "Passwords do not match"
-                    return
+                // Card Form (Glass)
+                VStack(spacing: 16) {
+                    glassField(icon: "person", placeholder: "Full Name", text: $name)
+                    glassField(icon: "envelope", placeholder: "Email", text: $email, isEmail: true)
+                    glassField(icon: "lock", placeholder: "Password", text: $password, isSecure: true)
+                    glassField(icon: "lock", placeholder: "Confirm Password", text: $confirmPassword, isSecure: true)
+                    glassField(icon: "mappin.and.ellipse", placeholder: "City / Location", text: $location)
+
+                    // Button Glow Tap Effect
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.15)) {
+                            isPressed = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            isPressed = false
+                        }
+
+                        guard password == confirmPassword else {
+                            errorMessage = "Passwords do not match"
+                            return
+                        }
+
+                        guard !name.isEmpty else {
+                            errorMessage = "Please enter your name"
+                            return
+                        }
+
+                        path.append(AppScreen.editPhotosTemp(SignUpTempData(
+                            name: name,
+                            email: email,
+                            password: password,
+                            location: location
+                        )))
+                    }) {
+                        Text("Sign Up")
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                ZStack {
+                                    Color.deepForestGreen
+                                    if isPressed {
+                                        Color.white.opacity(0.2)
+                                            .blur(radius: 10)
+                                            .scaleEffect(1.05)
+                                    }
+                                }
+                            )
+                            .foregroundColor(.white)
+                            .cornerRadius(14)
+                            .shadow(color: .deepForestGreen.opacity(0.3), radius: 10, x: 0, y: 6)
+                    }
+                }
+                .padding()
+                .background(.ultraThinMaterial)
+                .cornerRadius(28)
+                .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: 6)
+                .padding(.horizontal)
+
+                if !errorMessage.isEmpty {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .font(.footnote)
+                        .padding(.horizontal)
                 }
 
-                guard !name.isEmpty else {
-                    errorMessage = "Please enter your name"
-                    return
-                }
+                Spacer()
 
-                // Go to EditPhotosView and pass info forward
-                DispatchQueue.main.async {
-                    path.append(AppScreen.editPhotosTemp(SignUpTempData(
-                        name: name,
-                        email: email,
-                        password: password,
-                        location: location
-                    )))
+                VStack(spacing: 6) {
+                    Image("piece_bottom_center")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 48)
+                        .opacity(0.7)
+
+                    Text("Every Queen Needs Her King")
+                        .font(.footnote)
+                        .foregroundColor(.goldenTan)
+
+                    Image("checkerboard_fade")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 280)
+                        .opacity(0.35)
                 }
             }
-            .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.deepForestGreen)
-            .foregroundColor(.creamWhite)
-            .cornerRadius(12)
-            .padding(.horizontal)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.espressoBrown)
+                    Text("Back")
+                        .foregroundColor(.espressoBrown)
+                        .fontWeight(.medium)
+                }
+                .onTapGesture {
+                    path.removeLast()
+                }
+            }
+        }
+        .preferredColorScheme(.light)
+    }
 
-            Spacer()
+    // Glass UI text field row
+    @ViewBuilder
+    func glassField(icon: String, placeholder: String, text: Binding<String>, isSecure: Bool = false, isEmail: Bool = false) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.espressoBrown)
+
+            if isSecure {
+                SecureField(placeholder, text: text)
+            } else {
+                TextField(placeholder, text: text)
+                    .keyboardType(isEmail ? .emailAddress : .default)
+            }
         }
         .padding()
-        .background(Color.creamWhite)
-        .ignoresSafeArea()
+        .background(.ultraThinMaterial)
+        .cornerRadius(12)
     }
 }
 
