@@ -4,7 +4,10 @@
 //
 //  Created by Zulfiqur on 5/9/25.
 //
-
+//
+//  MatchSuccessView.swift
+//  ChessMate
+//
 
 import SwiftUI
 
@@ -25,7 +28,7 @@ struct MatchSuccessView: View {
                         .scaledToFill()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .clipped()
-                        .overlay(Color.black.opacity(0.25)) // slight dark overlay
+                        .overlay(Color.black.opacity(0.25)) // dark overlay
                 } placeholder: {
                     Color.gray.opacity(0.2)
                 }
@@ -37,7 +40,7 @@ struct MatchSuccessView: View {
             VStack(spacing: 24) {
                 Spacer()
 
-                // Overlapping profile bubbles
+                // Profile bubbles
                 HStack(spacing: -20) {
                     if let currentURL = currentUser.photoURLs?.first {
                         ProfileBubble(imageURL: currentURL)
@@ -47,18 +50,15 @@ struct MatchSuccessView: View {
                     }
                 }
 
-                // Match message
                 VStack(spacing: 6) {
                     Text("It's a Match!")
                         .font(.largeTitle.bold())
                         .foregroundColor(.goldenTan)
-
                     Text("You and \(matchedUser.name) share a passion for chess!")
                         .font(.subheadline)
                         .foregroundColor(.creamWhite)
                 }
 
-                // Buttons
                 VStack(spacing: 12) {
                     Button(action: onStartChat) {
                         Text("Start Chat")
@@ -102,20 +102,17 @@ struct ProfileBubble: View {
                 Circle().fill(Color.gray.opacity(0.2))
             }
 
-            // Optional chess icon overlay
             Image("FRAME03")
                 .foregroundColor(.goldenTan)
                 .padding(1)
                 .clipShape(Circle())
                 .offset(x: 20, y: 20)
                 .frame(width: 10, height: 10)
-             
         }
         .frame(width: 100, height: 100)
         .clipShape(Circle())
         .overlay(
-            Circle()
-                .stroke(Color.creamWhite, lineWidth: 4)
+            Circle().stroke(Color.creamWhite, lineWidth: 4)
         )
     }
 }

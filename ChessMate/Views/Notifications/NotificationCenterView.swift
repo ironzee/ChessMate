@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import FirebaseFirestore
 
 struct NotificationCenterView: View {
     @Binding var path: NavigationPath
@@ -16,6 +17,9 @@ struct NotificationCenterView: View {
     private let filters = ["All", "Matches", "Reminders", "Updates"]
 
     @StateObject private var viewModel = MatchRequestViewModel()
+    @StateObject private var matchVM = MatchesViewModel()
+
+    @State private var matchedUsers: [MatchedUser] = []
 
     var body: some View {
         ScrollView {
@@ -46,7 +50,6 @@ struct NotificationCenterView: View {
                             selectedFilter = filter
                         }) {
                             Text(filter)
-                                .padding(.vertical, 20)
                                 .background(
                                     selectedFilter == filter ? Color.goldenTan : Color.lightCoffeeGray.opacity(0.4)
                                 )
@@ -57,62 +60,54 @@ struct NotificationCenterView: View {
                 }
                 .padding(.horizontal)
 
-                // New Profile Matches (Static UI for now)
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("New Profile Matches")
-                        .font(.headline)
-                        .foregroundColor(.espressoBrown)
-                        .padding(.horizontal)
+                // 🔥 New Profile Matches (Dynamic)
+                if !matchedUsers.isEmpty {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("New Profile Matches")
+                            .font(.headline)
+                            .foregroundColor(.espressoBrown)
+                            .padding(.horizontal)
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            ForEach(["Alex", "Sam", "Jordan", "Taylor", "Casey"], id: \.self) { name in
-                                VStack {
-                                    Circle()
-                                        .fill(Color.gray.opacity(0.3))
-                                        .frame(width: 56, height: 56)
-                                        .overlay(Text(String(name.prefix(1))).fontWeight(.bold).foregroundColor(.white))
-                                    Text(name)
-                                        .font(.caption)
-                                        .foregroundColor(.espressoBrown)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 16) {
+                                ForEach(matchedUsers) { match in
+                                    VStack(spacing: 4) {
+                                        if let url = match.photoURL, let imageURL = URL(string: url) {
+                                            AsyncImage(url: imageURL) { image in
+                                                image.resizable().scaledToFill()
+                                            } placeholder: {
+                                                Circle().fill(Color.gray.opacity(0.3))
+                                            }
+                                            .frame(width: 56, height: 56)
+                                            .clipShape(Circle())
+                                        } else {
+                                            Circle()
+                                                .fill(Color.gray.opacity(0.3))
+                                                .frame(width: 56, height: 56)
+                                                .overlay(Text(match.name.prefix(1)).foregroundColor(.white))
+                                        }
+
+                                        Text(match.name)
+                                            .font(.caption)
+                                            .foregroundColor(.espressoBrown)
+                                    }
+                                    .onTapGesture {
+                                        path.append(AppScreen.chat(ChatModel(
+                                            id: match.chatId,
+                                            userAId: currentUserId,
+                                            userBId: match.otherUserId,
+                                            lastMessage: nil,
+                                            timestamp: match.createdAt
+                                        )))
+                                    }
                                 }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
-                    }
-                }
-                // New Messages Section
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("New Messages")
-                        .font(.headline)
-                        .foregroundColor(.espressoBrown)
-                        .padding(.horizontal)
-
-                    ForEach(mockNewMessages, id: \.id) { message in
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Text(message.senderName)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Spacer()
-                                Text(message.timeAgo)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-
-                            Text(message.preview)
-                                .font(.subheadline)
-                                .foregroundColor(.espressoBrown)
-                        }
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(18)
-                        .shadow(radius: 2)
-                        .padding(.horizontal)
                     }
                 }
 
-                // Dynamic Section
+                // 🔔 Dynamic Section by Filter
                 switch selectedFilter {
                 case "All": allNotificationsView
                 case "Matches": matchNotificationsView
@@ -135,15 +130,16 @@ struct NotificationCenterView: View {
             .padding(.top)
         }
         .onAppear {
-            guard !currentUserId.isEmpty else {
-                print("❌ currentUserId is empty. Skipping listener setup.")
-                return
-            }
             viewModel.startListening(for: currentUserId)
+            matchVM.fetchMatches(for: currentUserId)
+
+            // 🔁 Add small delay to ensure matchVM has populated
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                fetchMatchedProfiles()
+            }
         }
         .background(Color.creamWhite.ignoresSafeArea())
         .navigationBarBackButtonHidden(true)
-
     }
 
     // MARK: - Filtered Sections
@@ -183,6 +179,34 @@ struct NotificationCenterView: View {
             reminderCard
         }
         .padding(.horizontal)
+    }
+
+    // MARK: - Match Profile Fetch Logic
+
+    func fetchMatchedProfiles() {
+        matchedUsers.removeAll()
+
+        for match in matchVM.matches {
+            let otherId = match.userAId == currentUserId ? match.userBId : match.userAId
+
+            Firestore.firestore().collection("users").document(otherId).getDocument { snapshot, _ in
+                if let data = snapshot?.data() {
+                    let name = data["name"] as? String ?? "Unknown"
+                    let photoURL = (data["photoURLs"] as? [String])?.first
+                    let user = MatchedUser(
+                        id: match.id ?? UUID().uuidString,
+                        otherUserId: otherId,
+                        chatId: match.chatId,
+                        name: name,
+                        photoURL: photoURL,
+                        createdAt: match.createdAt ?? Date()
+                    )
+                    DispatchQueue.main.async {
+                        matchedUsers.append(user)
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Card Components
@@ -343,14 +367,12 @@ struct NotificationCenterView: View {
         return formatter.string(from: date)
     }
 }
-struct NewMessagePreview: Identifiable {
-    let id = UUID()
-    let senderName: String
-    let preview: String
-    let timeAgo: String
-}
 
-let mockNewMessages: [NewMessagePreview] = [
-    NewMessagePreview(senderName: "Morgan", preview: "Hey, are you free this evening?", timeAgo: "10m ago"),
-    NewMessagePreview(senderName: "Riley", preview: "Thanks for the coffee recommendation!", timeAgo: "25m ago")
-]
+struct MatchedUser: Identifiable {
+    let id: String
+    let otherUserId: String
+    let chatId: String
+    let name: String
+    let photoURL: String?
+    let createdAt: Date
+}

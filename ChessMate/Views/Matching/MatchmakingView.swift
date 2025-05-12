@@ -5,7 +5,7 @@
 //  Created by Zulfiqur on 4/26/25.
 //
 
-//
+
 import SwiftUI
 import FirebaseFirestore
 
@@ -65,7 +65,7 @@ struct MatchmakingView: View {
                         userAId: self.user.id,
                         userBId: user.id,
                         lastMessage: nil,
-                        timestamp: Date()
+                        timestamp: nil
                     )))
                     matchedUser = nil
                 },
@@ -75,7 +75,5 @@ struct MatchmakingView: View {
                 }
             )
         }
-
     }
 }
-

@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -31,7 +29,7 @@ class LikeService {
 
             self.checkMutualLike(between: likerId, and: likedId) { isMutual in
                 if isMutual {
-                    self.createChatBetween(likerId, and: likedId)
+                    self.createChatAndMatchBetween(likerId, and: likedId)
                 }
                 completion(isMutual)
             }
@@ -55,8 +53,8 @@ class LikeService {
             }
     }
 
-    /// Creates a chat document for the matched pair
-    private func createChatBetween(_ user1: String, and user2: String) {
+    /// Creates both a chat and a match entry for mutual likes
+    private func createChatAndMatchBetween(_ user1: String, and user2: String) {
         let sortedIds = [user1, user2].sorted()
         let chatId = sortedIds.joined(separator: "_")
 
@@ -75,5 +73,35 @@ class LikeService {
                 print("✅ Chat created for mutual match: \(chatId)")
             }
         }
+
+        let matchData: [String: Any] = [
+            "userAId": sortedIds[0],
+            "userBId": sortedIds[1],
+            "chatId": chatId,
+            "createdAt": Timestamp(date: Date()),
+            "initiatedBy": user1
+        ]
+
+        db.collection("matches")
+            .whereField("userAId", isEqualTo: sortedIds[0])
+            .whereField("userBId", isEqualTo: sortedIds[1])
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("❌ Error checking existing match: \(error.localizedDescription)")
+                    return
+                }
+
+                if snapshot?.documents.isEmpty == true {
+                    self.db.collection("matches").addDocument(data: matchData) { error in
+                        if let error = error {
+                            print("❌ Error saving match: \(error.localizedDescription)")
+                        } else {
+                            print("✅ Match saved for users: \(sortedIds)")
+                        }
+                    }
+                } else {
+                    print("ℹ️ Match already exists between users: \(sortedIds)")
+                }
+            }
     }
 }
