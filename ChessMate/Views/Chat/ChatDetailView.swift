@@ -4,10 +4,10 @@
 //
 //  Created by Zulfiqur on 5/3/25.
 //
-
+import Foundation
+import Firebase
 import SwiftUI
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 struct ChatDetailView: View {
     @StateObject var viewModel: ChatDetailViewModel

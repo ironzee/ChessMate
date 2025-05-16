@@ -86,7 +86,11 @@
 		188C3F302DC72921000C92FA /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */; };
 		188C3F332DC84471000C92FA /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 188C3F322DC84471000C92FA /* SDWebImageSwiftUI */; };
 		188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F342DC84A81000C92FA /* MatchProfileCard.swift */; };
-		4F264B1CB03FDC9B483F7E78 /* Pods_ChessMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */; };
+		18DF42F92DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 18DF42F82DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community */; };
+		18E6966B2DD2CC330096E3D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 18E6966A2DD2CC330096E3D8 /* FirebaseAuth */; };
+		18E6966D2DD2CC330096E3D8 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 18E6966C2DD2CC330096E3D8 /* FirebaseCore */; };
+		18E6966F2DD2CC330096E3D8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 18E6966E2DD2CC330096E3D8 /* FirebaseFirestore */; };
+		18E696712DD2CC330096E3D8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 18E696702DD2CC330096E3D8 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,9 +174,6 @@
 		188C3F2D2DC72912000C92FA /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
 		188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		188C3F342DC84A81000C92FA /* MatchProfileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchProfileCard.swift; sourceTree = "<group>"; };
-		42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessMate.debug.xcconfig"; path = "Target Support Files/Pods-ChessMate/Pods-ChessMate.debug.xcconfig"; sourceTree = "<group>"; };
-		97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChessMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessMate.release.xcconfig"; path = "Target Support Files/Pods-ChessMate/Pods-ChessMate.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +182,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				188C3F332DC84471000C92FA /* SDWebImageSwiftUI in Frameworks */,
-				4F264B1CB03FDC9B483F7E78 /* Pods_ChessMate.framework in Frameworks */,
+				18E6966B2DD2CC330096E3D8 /* FirebaseAuth in Frameworks */,
+				18E6966D2DD2CC330096E3D8 /* FirebaseCore in Frameworks */,
+				18E6966F2DD2CC330096E3D8 /* FirebaseFirestore in Frameworks */,
+				18E696712DD2CC330096E3D8 /* FirebaseStorage in Frameworks */,
+				18DF42F92DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +198,7 @@
 			children = (
 				1843630B2DBDBF0000F7FDBD /* ChessMate */,
 				1843630A2DBDBF0000F7FDBD /* Products */,
-				5F9BC59E520C2B3DE97CBE47 /* Pods */,
-				F5FC550B41820B631DF0C11B /* Frameworks */,
+				63863BE1A911703046D4BB7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -420,19 +424,9 @@
 			path = OnboardingFlo;
 			sourceTree = "<group>";
 		};
-		5F9BC59E520C2B3DE97CBE47 /* Pods */ = {
+		63863BE1A911703046D4BB7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */,
-				9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		F5FC550B41820B631DF0C11B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				97C0EF4597F5B9BAA2E87C38 /* Pods_ChessMate.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -444,11 +438,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 184363172DBDBF0100F7FDBD /* Build configuration list for PBXNativeTarget "ChessMate" */;
 			buildPhases = (
-				5880FB48326E0E00AD993618 /* [CP] Check Pods Manifest.lock */,
 				184363052DBDBF0000F7FDBD /* Sources */,
 				184363062DBDBF0000F7FDBD /* Frameworks */,
 				184363072DBDBF0000F7FDBD /* Resources */,
-				7BD9965686907EA26E49D30E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -457,6 +449,11 @@
 			name = ChessMate;
 			packageProductDependencies = (
 				188C3F322DC84471000C92FA /* SDWebImageSwiftUI */,
+				18E6966A2DD2CC330096E3D8 /* FirebaseAuth */,
+				18E6966C2DD2CC330096E3D8 /* FirebaseCore */,
+				18E6966E2DD2CC330096E3D8 /* FirebaseFirestore */,
+				18E696702DD2CC330096E3D8 /* FirebaseStorage */,
+				18DF42F82DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community */,
 			);
 			productName = ChessMate;
 			productReference = 184363092DBDBF0000F7FDBD /* ChessMate.app */;
@@ -488,6 +485,7 @@
 			mainGroup = 184363002DBDBF0000F7FDBD;
 			packageReferences = (
 				188C3F312DC84471000C92FA /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1843630A2DBDBF0000F7FDBD /* Products */;
 			projectDirPath = "";
@@ -510,48 +508,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5880FB48326E0E00AD993618 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ChessMate-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7BD9965686907EA26E49D30E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChessMate/Pods-ChessMate-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		184363052DBDBF0000F7FDBD /* Sources */ = {
@@ -691,11 +647,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -748,10 +704,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -760,7 +717,6 @@
 		};
 		184363182DBDBF0100F7FDBD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42FB0EE3DE903103A11288DE /* Pods-ChessMate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -791,7 +747,6 @@
 		};
 		184363192DBDBF0100F7FDBD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B6FF9C805DB72FAC653F7F5 /* Pods-ChessMate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -852,6 +807,14 @@
 				minimumVersion = 3.1.3;
 			};
 		};
+		18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -859,6 +822,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 188C3F312DC84471000C92FA /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		18DF42F82DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFunctionsCombine-Community";
+		};
+		18E6966A2DD2CC330096E3D8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		18E6966C2DD2CC330096E3D8 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		18E6966E2DD2CC330096E3D8 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		18E696702DD2CC330096E3D8 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E696692DD2CC330096E3D8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

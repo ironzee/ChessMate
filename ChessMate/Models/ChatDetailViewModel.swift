@@ -13,7 +13,7 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+
 
 class ChatDetailViewModel: ObservableObject {
     @Published var messages: [Message] = []

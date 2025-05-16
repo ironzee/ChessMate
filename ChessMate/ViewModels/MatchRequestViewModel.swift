@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 class MatchRequestViewModel: ObservableObject {
     @Published var matchRequests: [MatchRequestModel] = []

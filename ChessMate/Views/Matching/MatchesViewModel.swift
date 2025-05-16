@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 class MatchesViewModel: ObservableObject {
     @Published var matches: [MatchUser] = []

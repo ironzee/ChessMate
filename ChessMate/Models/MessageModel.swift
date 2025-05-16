@@ -7,7 +7,7 @@
 
 import Foundation
 import Foundation
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 
 struct MessageModel: Identifiable, Codable {

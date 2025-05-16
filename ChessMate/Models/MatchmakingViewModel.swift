@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 import CoreLocation
 
 class MatchmakingViewModel: ObservableObject {

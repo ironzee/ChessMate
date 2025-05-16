@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct ChatModel: Identifiable, Codable, Hashable {
     var id: String

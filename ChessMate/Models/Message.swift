@@ -6,8 +6,7 @@
     //
 
     import Foundation
-    import FirebaseFirestoreSwift
-
+import FirebaseFirestore
     struct Message: Identifiable, Codable {
         @DocumentID var id: String? = nil
         let text: String

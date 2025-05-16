@@ -7,7 +7,7 @@
 
 import Foundation
 import Foundation
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct MatchModel: Identifiable, Codable {
     @DocumentID var id: String?

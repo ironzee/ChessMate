@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct MatchRequestModel: Identifiable, Codable {
     @DocumentID var id: String?

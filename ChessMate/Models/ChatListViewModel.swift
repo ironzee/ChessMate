@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 class ChatListViewModel: ObservableObject {
     @Published var chats: [ChatDisplayModel] = []
