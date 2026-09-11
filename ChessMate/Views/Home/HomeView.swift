@@ -4,16 +4,7 @@
 //
 //  Created by Zulfiqur on 4/26/25.
 //
-//  HomeView.swift
-//  ChessMate
-//
 
-//
-//  HomeView.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 4/26/25.
-//
 import SwiftUI
 import MapKit
 
@@ -26,10 +17,13 @@ struct HomeView: View {
     @StateObject private var cafeFinder = CafeFinder()
     @StateObject private var matchRequestVM = MatchRequestViewModel()
     @StateObject private var matchmakingVM = MatchmakingViewModel()
-
+    @StateObject private var leaderboardVM = HomeLeaderboardViewModel()
+    
     var body: some View {
+        let currentUser = authManager.currentUser
+
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 20) {
                 // Header
                 HStack(spacing: 16) {
                     Label("ChessMate", systemImage: "crown.fill")
@@ -42,19 +36,27 @@ struct HomeView: View {
                         path.append(AppScreen.notificationCenter)
                     }) {
                         Image(systemName: "bell.fill")
+                            .font(.title3)
                             .foregroundColor(.espressoBrown)
-                            .padding(10)
+                            .padding(2)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
+                    .frame(width: 36, height: 36)
+                    .contentShape(Rectangle())
 
                     Button(action: {
                         path.append(AppScreen.chatList)
                     }) {
                         Image(systemName: "bubble.left.and.bubble.right.fill")
-                            .font(.title2)
+                            .font(.title3)
                             .foregroundColor(.espressoBrown)
+                            .padding(2)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
                     }
+                    .frame(width: 36, height: 36)
+                    .contentShape(Rectangle())
 
                     Button(action: {
                         path.append(AppScreen.settings)
@@ -74,10 +76,11 @@ struct HomeView: View {
                         } else {
                             Image(systemName: "person.crop.circle.fill")
                                 .resizable()
-                                .frame(width: 36, height: 36)
+                                .frame(width: 40, height: 40)
                                 .foregroundColor(.gray)
                         }
                     }
+                    .contentShape(Circle())
                 }
                 .padding(.horizontal)
 
@@ -104,8 +107,8 @@ struct HomeView: View {
                 }
                 .padding()
                 .background(.ultraThinMaterial)
-                .cornerRadius(24)
-                .shadow(radius: 6)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
                 .padding(.horizontal)
 
                 // MARK: - Match Now Section
@@ -118,89 +121,87 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             ForEach(matchmakingVM.players) { player in
-                                ZStack(alignment: .topTrailing) {
-                                    VStack(spacing: 10) {
-                                        AsyncImage(url: URL(string: player.photoURLs.first ?? "")) { image in
-                                            image.resizable().scaledToFill()
-                                        } placeholder: {
-                                            Color.gray.opacity(0.2)
-                                        }
-                                        .frame(width: 130, height: 140)
-                                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                                        .shadow(radius: 6)
-
-                                        VStack(spacing: 4) {
-                                            Text(player.name)
-                                                .font(.headline)
-                                                .foregroundColor(.espressoBrown)
-
-                                            Text("\(player.elo) ELO")
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
-
-                                            Button(action: {
-                                                // Trigger match logic
-                                            }) {
-                                                Text("Match")
-                                                    .font(.subheadline.bold())
-                                                    .padding(.vertical, 6)
-                                                    .frame(maxWidth: .infinity)
-                                                    .background(Color.deepForestGreen.opacity(0.8))
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(10)
-                                            }
-                                        }
-                                        .padding(.top, 4)
-                                        .padding(.horizontal)
+                                VStack(spacing: 10) {
+                                    AsyncImage(url: URL(string: player.photoURLs.first ?? "")) { image in
+                                        image.resizable().scaledToFill()
+                                    } placeholder: {
+                                        Color.gray.opacity(0.2)
                                     }
-                                    .padding(.top)
-                                    .frame(width: 160)
-                                    .background(.ultraThinMaterial).opacity(0.9)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                                    .frame(width: 130, height: 140)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .shadow(radius: 6)
 
-                                    // Small glass badge circle (like status dot)
-                                    Circle()
-                                        .fill(Color.goldenTan.opacity(0.9))
-                                        .frame(width: 12, height: 12)
-                                        .padding(8)
+                                    VStack(spacing: 4) {
+                                        Text(player.name)
+                                            .font(.headline)
+                                            .foregroundColor(.espressoBrown)
+                                    }
+                                    .padding(.top, 4)
                                 }
+                                .padding(12)
+                                .frame(width: 160)
+                                .background(.ultraThinMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
                             }
                         }
                         .padding(.horizontal)
                     }
-                }                
-                .shadow(radius: 6)
+                }
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
 
 
-                // Matches
-                Button(action: {
-                    path.append(AppScreen.matchRequests)
-                }, label: {
+                // Active Matches Header
+                HStack {
                     Text("Active Matches")
-                        .font(.headline)
+                        .font(.title3.bold())
                         .foregroundColor(.espressoBrown)
-                        .padding(.horizontal)                })
-               
+                    Spacer()
+                    Button {
+                        path.append(AppScreen.matchRequests)
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("See All")
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                }
+                .padding(.horizontal)
+
+                if matchRequestVM.confirmedMatches.isEmpty {
+                    Text("No active matches yet")
+                        .foregroundColor(.espressoBrown.opacity(0.5))
+                        .padding(.horizontal)
+                }
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(matchRequestVM.confirmedMatches) { request in
-                            MatchCard(request: request)
+                            if let currentUser = authManager.currentUser,
+                               let opponent = matchRequestVM.getOpponent(from: request, currentUserId: currentUser.uid) {
+                                MatchCard(request: request, currentUser: currentUser, opponent: opponent)
+                            }
                         }
                     }
                     .padding(.horizontal)
                 }
 
-                // Cafés
-                Button(action: {
-                    path.append(AppScreen.cafeFinder)
-                }) {
+                // Cafés Header
+                HStack {
                     Text("Chess-Friendly Cafés")
-                        .font(.headline)
+                        .font(.title3.bold())
                         .foregroundColor(.espressoBrown)
-                        .padding(.horizontal)
+                    Spacer()
+                    Button {
+                        path.append(AppScreen.cafeFinder)
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("See All")
+                            Image(systemName: "chevron.right")
+                        }
+                    }
                 }
+                .padding(.horizontal)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
@@ -220,42 +221,43 @@ struct HomeView: View {
                         path.append(AppScreen.leaderboard)
                     }) {
                         Text("Local Leaderboard")
-                            .font(.headline)
+                            .font(.title3.bold())
                             .foregroundColor(.espressoBrown)
+                            .padding(.horizontal)
                     }
 
                     VStack(spacing: 12) {
-                        LeaderboardRow(rank: 1, name: "Sarah K.", elo: 1850)
-                        LeaderboardRow(rank: 2, name: "Michael R.", elo: 1780)
-                        LeaderboardRow(rank: 3, name: "David L.", elo: 1720)
+                        ForEach(Array(leaderboardVM.topThree.enumerated()), id: \.1.uid) { index, player in
+                            LeaderboardRow(rank: index + 1, name: player.name, elo: player.elo)
+                        }
                     }
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(18)
-                    .shadow(radius: 4)
+                    .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
                 }
                 .padding(.horizontal)
             }
             .padding(.vertical)
         }
-        .onAppear {
-            authManager.refreshCurrentUser()
-            matchmakingVM.fetchPlayers(excludeUID: authManager.currentUser?.uid ?? "")
-            // ...
-        }
+        .scrollIndicators(.hidden)
         .padding(.top, 70)
         .background(
             LinearGradient(colors: [Color.creamWhite, Color.goldenTan.opacity(0.15)], startPoint: .topLeading, endPoint: .bottomTrailing)
         )
-        .ignoresSafeArea()
+        .ignoresSafeArea(edges: .top)
         .navigationBarBackButtonHidden(true)
         .onAppear {
             authManager.refreshCurrentUser()
+            matchmakingVM.fetchPlayers(excludeUID: authManager.currentUser?.uid ?? "")
             if let userId = authManager.currentUser?.uid {
                 matchRequestVM.startListening(for: userId)
             }
-            if let location = locationManager.userLocation {
-                cafeFinder.searchCafes(near: location)
+            if let location = authManager.currentUser?.location {
+                leaderboardVM.fetchLocalTopPlayers(location: location)
+            }
+            if let loc = locationManager.userLocation {
+                cafeFinder.searchCafes(near: loc)
             }
         }
         .onReceive(locationManager.$userLocation) { newLocation in
@@ -268,24 +270,35 @@ struct HomeView: View {
 // MARK: - MatchCard
 struct MatchCard: View {
     var request: MatchRequestModel
+    var currentUser: UserModel
+    var opponent: UserModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Image(systemName: "person.fill")
+
+            // Player VS Layout
+            HStack(spacing: 12) {
+                profileImage(from: currentUser.photoURLs?.first)
+
                 Text("vs")
-                Image(systemName: "person.fill")
+                    .font(.headline)
+                    .foregroundColor(.espressoBrown)
+
+                profileImage(from: opponent.photoURLs?.first)
             }
             .font(.headline)
 
+            // Café Name
             Text(request.cafeName)
                 .font(.subheadline)
                 .foregroundColor(.espressoBrown)
 
+            // Suggested Match Time
             Text(formatDate(from: request.suggestedTime))
                 .font(.caption)
                 .foregroundColor(.espressoBrown.opacity(0.6))
 
+            // Status
             Text(request.status.capitalized)
                 .font(.caption2)
                 .padding(6)
@@ -297,16 +310,36 @@ struct MatchCard: View {
         .frame(width: 220)
         .background(.ultraThinMaterial)
         .cornerRadius(18)
-        .shadow(radius: 4)
+        .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
     }
 
-    func formatDate(from date: Date) -> String {
+    // MARK: - Helper
+    @ViewBuilder
+    func profileImage(from urlString: String?) -> some View {
+        if let urlString = urlString, let url = URL(string: urlString) {
+            AsyncImage(url: url) { image in
+                image.resizable()
+            } placeholder: {
+                Circle().fill(Color.gray.opacity(0.2))
+            }
+            .frame(width: 44, height: 44)
+            .clipShape(Circle())
+        } else {
+            Image(systemName: "person.fill")
+                .resizable()
+                .foregroundColor(.gray)
+                .frame(width: 44, height: 44)
+                .background(Circle().fill(Color.lightCoffeeGray))
+                .clipShape(Circle())
+        }
+    }
+
+    // MARK: - Format Date
+    func formatDate(from timestamp: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        formatter.dateFormat = "E, MMM d • h:mm a"
+        return formatter.string(from: timestamp)
     }
-
 }
 
 // MARK: - CafeCardView
@@ -339,7 +372,7 @@ struct CafeCardView: View {
         .padding()
         .background(.ultraThinMaterial)
         .cornerRadius(18)
-        .shadow(radius: 4)
+        .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
         .onTapGesture {
             onTap()
         }

@@ -12,6 +12,8 @@
 		180A16ED2DC20653003D8D6F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16EC2DC20653003D8D6F /* UserManager.swift */; };
 		180A16EF2DC20A19003D8D6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 180A16EE2DC20A19003D8D6F /* GoogleService-Info.plist */; };
 		180A16F32DC20D6E003D8D6F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A16F22DC20D6E003D8D6F /* SignUpView.swift */; };
+		183DC5372DE9378C00954EF4 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DC5362DE9378C00954EF4 /* LeaderboardViewModel.swift */; };
+		183DC5392DE963A800954EF4 /* HomeLeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DC5382DE963A800954EF4 /* HomeLeaderboardViewModel.swift */; };
 		1843630D2DBDBF0000F7FDBD /* ChessMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843630C2DBDBF0000F7FDBD /* ChessMateApp.swift */; };
 		184363112DBDBF0100F7FDBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184363102DBDBF0100F7FDBD /* Assets.xcassets */; };
 		184363142DBDBF0100F7FDBD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184363132DBDBF0100F7FDBD /* Preview Assets.xcassets */; };
@@ -100,6 +102,8 @@
 		180A16EE2DC20A19003D8D6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		180A16F22DC20D6E003D8D6F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		18101DA62DC22F5600FD220B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		183DC5362DE9378C00954EF4 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		183DC5382DE963A800954EF4 /* HomeLeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeaderboardViewModel.swift; sourceTree = "<group>"; };
 		184363092DBDBF0000F7FDBD /* ChessMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1843630C2DBDBF0000F7FDBD /* ChessMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMateApp.swift; sourceTree = "<group>"; };
 		184363102DBDBF0100F7FDBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 				184E6F202DCC519F00CE3057 /* ProfilePhotosViewModel.swift */,
 				1869EC5A2DCD733600FC24B3 /* CafeFinder.swift */,
 				1869EC602DCDADB100FC24B3 /* OnboardingViewModel.swift */,
+				183DC5382DE963A800954EF4 /* HomeLeaderboardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			children = (
 				188C3F272DC7197D000C92FA /* LeaderboardPlayer.swift */,
 				1843632D2DBDC26C00F7FDBD /* LeaderboardView.swift */,
+				183DC5362DE9378C00954EF4 /* LeaderboardViewModel.swift */,
 			);
 			path = Leaderboard;
 			sourceTree = "<group>";
@@ -563,6 +569,7 @@
 				1869EC612DCDADB100FC24B3 /* OnboardingViewModel.swift in Sources */,
 				1869EC5E2DCD7FD900FC24B3 /* SuggestMatchView.swift in Sources */,
 				188C3F1F2DC60AC7000C92FA /* ChatListViewModel.swift in Sources */,
+				183DC5392DE963A800954EF4 /* HomeLeaderboardViewModel.swift in Sources */,
 				184E6F212DCC519F00CE3057 /* ProfilePhotosViewModel.swift in Sources */,
 				188C3F262DC70E27000C92FA /* CafeModel.swift in Sources */,
 				188C3F192DC5F7AE000C92FA /* ChatDetailViewModel.swift in Sources */,
@@ -572,6 +579,7 @@
 				1869EC592DCD70EF00FC24B3 /* LocationManager.swift in Sources */,
 				1869EC6B2DCDAF7100FC24B3 /* MatchSettingsView.swift in Sources */,
 				1843632C2DBDC24E00F7FDBD /* ChatView.swift in Sources */,
+				183DC5372DE9378C00954EF4 /* LeaderboardViewModel.swift in Sources */,
 				180A16E72DC2016F003D8D6F /* AuthManager.swift in Sources */,
 				188C3F242DC6CEF9000C92FA /* ChessMateAppDelegate.swift in Sources */,
 				1869EC692DCDAF5A00FC24B3 /* CafeStyleView.swift in Sources */,

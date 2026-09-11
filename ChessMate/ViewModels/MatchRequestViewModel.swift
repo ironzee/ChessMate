@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class MatchRequestViewModel: ObservableObject {
     @Published var matchRequests: [MatchRequestModel] = []
+    @Published var userCache: [String: UserModel] = [:]
 
     private let db = Firestore.firestore()
     private var listener: ListenerRegistration?
@@ -35,7 +36,38 @@ class MatchRequestViewModel: ObservableObject {
                 self.matchRequests = snapshot?.documents.compactMap {
                     try? $0.data(as: MatchRequestModel.self)
                 } ?? []
+                self.preloadOpponentUsers(for: self.matchRequests, currentUserId: userId)
+
             }
+    }
+    func getOpponent(from request: MatchRequestModel, currentUserId: String) -> UserModel? {
+        if request.senderId == currentUserId {
+            return userCache[request.receiverId]
+        } else {
+            return userCache[request.senderId]
+        }
+    }
+    func preloadOpponentUsers(for requests: [MatchRequestModel], currentUserId: String) {
+        let opponentIds = Set(
+            requests.map {
+                $0.senderId == currentUserId ? $0.receiverId : $0.senderId
+            }
+        )
+
+        for uid in opponentIds {
+            if userCache[uid] == nil {
+                db.collection("users").document(uid).getDocument { snapshot, error in
+                    guard let data = snapshot?.data(),
+                          let user = try? snapshot?.data(as: UserModel.self) else {
+                        print("❌ Failed to load user \(uid)")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.userCache[uid] = user
+                    }
+                }
+            }
+        }
     }
 
     func startListening(for userId: String) {
