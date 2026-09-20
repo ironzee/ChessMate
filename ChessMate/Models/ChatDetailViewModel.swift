@@ -13,7 +13,7 @@
 
 import Foundation
 import FirebaseFirestore
-
+import FirebaseFirestore
 
 class ChatDetailViewModel: ObservableObject {
     @Published var messages: [Message] = []
@@ -104,3 +104,4 @@ class ChatDetailViewModel: ObservableObject {
         }
     }
 }
+

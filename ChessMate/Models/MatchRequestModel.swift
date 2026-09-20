@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseFirestore
 
 struct MatchRequestModel: Identifiable, Codable {
     @DocumentID var id: String?
@@ -20,6 +21,7 @@ struct MatchRequestModel: Identifiable, Codable {
     var newTime: Date?
     var newCafeName: String?
     var chatId: String?
+    var gameId: String?
     var createdAt: Date?
 
     var participants: [String]? // ✅ NEW: used for querying both sender & receiver

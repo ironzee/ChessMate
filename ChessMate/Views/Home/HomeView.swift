@@ -104,6 +104,17 @@ struct HomeView: View {
                             .foregroundColor(.creamWhite)
                             .cornerRadius(18)
                     }
+                    Button(action: {
+                        path.append(AppScreen.botGame)
+                    }) {
+                        Text("Play vs Bot 🤖")
+                            .fontWeight(.semibold)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.deepForestGreen)
+                            .foregroundColor(.creamWhite)
+                            .cornerRadius(18)
+                    }
                 }
                 .padding()
                 .background(.ultraThinMaterial)
@@ -176,10 +187,12 @@ struct HomeView: View {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(matchRequestVM.confirmedMatches) { request in
+                        ForEach(matchRequestVM.confirmedMatches.enumerated().map { ($0.offset, $0.element) }, id: \.0) { _, request in
                             if let currentUser = authManager.currentUser,
                                let opponent = matchRequestVM.getOpponent(from: request, currentUserId: currentUser.uid) {
-                                MatchCard(request: request, currentUser: currentUser, opponent: opponent)
+                                MatchCard(request: request, currentUser: currentUser, opponent: opponent) { gameId in
+                                    path.append(AppScreen.game(gameId))
+                                }
                             }
                         }
                     }
@@ -272,6 +285,7 @@ struct MatchCard: View {
     var request: MatchRequestModel
     var currentUser: UserModel
     var opponent: UserModel
+    var onResumeGame: (String) -> Void = { _ in }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -305,6 +319,18 @@ struct MatchCard: View {
                 .background(request.status.lowercased() == "confirmed" ? Color.deepForestGreen : Color.gray)
                 .foregroundColor(.white)
                 .cornerRadius(8)
+
+            if let gameId = request.gameId, !gameId.isEmpty {
+                Button("Resume Game") {
+                    onResumeGame(gameId)
+                }
+                .font(.caption.bold())
+                .padding(.vertical, 6)
+                .frame(maxWidth: .infinity)
+                .background(Color.deepForestGreen)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
         }
         .padding()
         .frame(width: 220)
@@ -349,17 +375,20 @@ struct CafeCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image("cafe1") // Replace if dynamic
+            Image("cafe1")
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 120)
-                .frame(maxWidth: .infinity)
+                .scaledToFill()
+                .frame(width: 240, height: 140)
                 .clipped()
-                .cornerRadius(12)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 
             Text(cafe.name)
                 .font(.headline)
                 .foregroundColor(.espressoBrown)
+                .multilineTextAlignment(.leading)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .frame(height: 42, alignment: .topLeading)
 
             Text("\(Int.random(in: 6...20)) players")
                 .font(.subheadline)
@@ -376,6 +405,7 @@ struct CafeCardView: View {
         .onTapGesture {
             onTap()
         }
+        .frame(width: 240)
     }
 }
 
@@ -415,3 +445,4 @@ struct LeaderboardRow: View {
         .shadow(radius: 2)
     }
 }
+

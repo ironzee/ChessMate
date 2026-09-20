@@ -5,20 +5,6 @@
 //  Created by Zulfiqur on 4/26/25.
 //
 
-//
-//  AppScreen.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 4/26/25.
-//
-
-//
-//  AppScreen.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 4/26/25.
-//
-
 import Foundation
 
 enum AppScreen: Hashable {
@@ -41,6 +27,8 @@ enum AppScreen: Hashable {
     case settings
     case profilePhotos
     case matchRequests
+    case game(String)
+    case botGame
     case editPhotosTemp(SignUpTempData)
     case cafeFinderWithCafe(Cafe)
 
@@ -77,6 +65,11 @@ enum AppScreen: Hashable {
         case .settings: hasher.combine("settings")
         case .profilePhotos: hasher.combine("profilePhotos")
         case .matchRequests: hasher.combine("matchRequests")
+        case .game(let id):
+            hasher.combine("game")
+            hasher.combine(id)
+        case .botGame:
+            hasher.combine("botGame")
         case .editPhotosTemp(let data):
             hasher.combine("editPhotosTemp")
             hasher.combine(data.name)
@@ -116,6 +109,7 @@ enum AppScreen: Hashable {
              (.settings, .settings),
              (.profilePhotos, .profilePhotos),
              (.matchRequests, .matchRequests),
+             (.botGame, .botGame),
              (.onboardingOpeningMove, .onboardingOpeningMove),
              (.onboardingCafeStyle, .onboardingCafeStyle),
              (.onboardingMatchSettings, .onboardingMatchSettings),
@@ -137,8 +131,12 @@ enum AppScreen: Hashable {
         case (.cafeFinderWithCafe(let a), .cafeFinderWithCafe(let b)):
             return a.id == b.id
 
+        case (.game(let a), .game(let b)):
+            return a == b
+
         default:
             return false
         }
     }
 }
+

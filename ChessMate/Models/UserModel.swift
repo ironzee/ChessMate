@@ -5,15 +5,8 @@
 //  Created by Zulfiqur on 5/2/25.
 //
 
-
-//
-//  UserModel.swift
-//  ChessMate
-//
-//  Created by Zulfiqur on 5/2/25.
-//
-
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestore
 
 struct UserModel: Identifiable, Codable {

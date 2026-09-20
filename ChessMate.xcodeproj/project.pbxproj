@@ -88,6 +88,12 @@
 		188C3F302DC72921000C92FA /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */; };
 		188C3F332DC84471000C92FA /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 188C3F322DC84471000C92FA /* SDWebImageSwiftUI */; };
 		188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C3F342DC84A81000C92FA /* MatchProfileCard.swift */; };
+		18A588753054E24300FAE9AC /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A588743054E24300FAE9AC /* GameModel.swift */; };
+		18A588773054E25000FAE9AC /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A588763054E25000FAE9AC /* GameViewModel.swift */; };
+		18A588793054E26100FAE9AC /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A588783054E26100FAE9AC /* ChessBoardView.swift */; };
+		18A5887B3054E27700FAE9AC /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5887A3054E27700FAE9AC /* GameView.swift */; };
+		18A5887D3054E40400FAE9AC /* ChessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5887C3054E40400FAE9AC /* ChessEngine.swift */; };
+		18A5887F3054FDCA00FAE9AC /* BotGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5887E3054FDCA00FAE9AC /* BotGameView.swift */; };
 		18DF42F92DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 18DF42F82DD2D90D006FB1D4 /* FirebaseFunctionsCombine-Community */; };
 		18E6966B2DD2CC330096E3D8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 18E6966A2DD2CC330096E3D8 /* FirebaseAuth */; };
 		18E6966D2DD2CC330096E3D8 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 18E6966C2DD2CC330096E3D8 /* FirebaseCore */; };
@@ -178,6 +184,12 @@
 		188C3F2D2DC72912000C92FA /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
 		188C3F2F2DC72921000C92FA /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		188C3F342DC84A81000C92FA /* MatchProfileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchProfileCard.swift; sourceTree = "<group>"; };
+		18A588743054E24300FAE9AC /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		18A588763054E25000FAE9AC /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		18A588783054E26100FAE9AC /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		18A5887A3054E27700FAE9AC /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		18A5887C3054E40400FAE9AC /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
+		18A5887E3054FDCA00FAE9AC /* BotGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +319,8 @@
 				1869EC582DCD70EF00FC24B3 /* LocationManager.swift */,
 				185ECC2D2DCF059E0038D32A /* LikeService.swift */,
 				185ECC2F2DCF3AF60038D32A /* SettingsManager.swift */,
+				18A5887A3054E27700FAE9AC /* GameView.swift */,
+				18A5887E3054FDCA00FAE9AC /* BotGameView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -375,6 +389,10 @@
 				184363292DBDC22A00F7FDBD /* ProfileView.swift */,
 				184363212DBDBF6A00F7FDBD /* WelcomeView.swift */,
 				184363252DBDC18F00F7FDBD /* HomeView.swift */,
+				18A588743054E24300FAE9AC /* GameModel.swift */,
+				18A588763054E25000FAE9AC /* GameViewModel.swift */,
+				18A588783054E26100FAE9AC /* ChessBoardView.swift */,
+				18A5887C3054E40400FAE9AC /* ChessEngine.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -531,23 +549,28 @@
 				188C3F222DC6CBC1000C92FA /* StartupFixManager.swift in Sources */,
 				184363342DBDC2FA00F7FDBD /* MatchHistoryView.swift in Sources */,
 				185ECC3F2DCF3EE60038D32A /* EditPreferencesFlow.swift in Sources */,
+				18A588753054E24300FAE9AC /* GameModel.swift in Sources */,
 				185ECC372DCF3BCE0038D32A /* MeetingTimeSheet.swift in Sources */,
 				184363222DBDBF6A00F7FDBD /* WelcomeView.swift in Sources */,
+				18A5887F3054FDCA00FAE9AC /* BotGameView.swift in Sources */,
 				184363322DBDC2EE00F7FDBD /* CafeFinderView.swift in Sources */,
 				1869EC5B2DCD733600FC24B3 /* CafeFinder.swift in Sources */,
 				1860DC9F2DC5BE8400D14B94 /* UserModel.swift in Sources */,
 				188C3F352DC84A81000C92FA /* MatchProfileCard.swift in Sources */,
 				188C3F172DC5EF31000C92FA /* ChatDetailView.swift in Sources */,
 				185ECC282DCDC8270038D32A /* MatchCardView.swift in Sources */,
+				18A5887D3054E40400FAE9AC /* ChessEngine.swift in Sources */,
 				1869EC672DCDAF4300FC24B3 /* OpeningMoveView.swift in Sources */,
 				1843633C2DBDC4B500F7FDBD /* TournamentDiscoveryView.swift in Sources */,
 				188C3F2A2DC726B0000C92FA /* SettingsView.swift in Sources */,
 				180A16ED2DC20653003D8D6F /* UserManager.swift in Sources */,
+				18A588793054E26100FAE9AC /* ChessBoardView.swift in Sources */,
 				188C3F132DC5ED1A000C92FA /* ChatManager.swift in Sources */,
 				185ECC3B2DCF3BF80038D32A /* ThemeSheet.swift in Sources */,
 				188C3F282DC7197D000C92FA /* LeaderboardPlayer.swift in Sources */,
 				188C3F1B2DC5F80D000C92FA /* Message.swift in Sources */,
 				185ECC302DCF3AF60038D32A /* SettingsManager.swift in Sources */,
+				18A588773054E25000FAE9AC /* GameViewModel.swift in Sources */,
 				184E6F192DCBFBA500CE3057 /* MatchRequestModel.swift in Sources */,
 				188C3EDC2DC5E2FD000C92FA /* ChatModel.swift in Sources */,
 				185ECC3D2DCF3C090038D32A /* LanguageSheet.swift in Sources */,
@@ -584,6 +607,7 @@
 				188C3F242DC6CEF9000C92FA /* ChessMateAppDelegate.swift in Sources */,
 				1869EC692DCDAF5A00FC24B3 /* CafeStyleView.swift in Sources */,
 				184E6F1F2DCBFC2000CE3057 /* MatchRequestSender.swift in Sources */,
+				18A5887B3054E27700FAE9AC /* GameView.swift in Sources */,
 				184E6F1B2DCBFBD700CE3057 /* MatchRequestViewModel.swift in Sources */,
 				1869EC6F2DCDB3F100FC24B3 /* CoffeeOrderView.swift in Sources */,
 				184E6F1D2DCBFBFA00CE3057 /* MatchRequestsView.swift in Sources */,

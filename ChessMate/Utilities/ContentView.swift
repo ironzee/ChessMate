@@ -120,7 +120,14 @@ struct ContentView: View {
                     } else {
                         Text("⚠️ User not loaded")
                     }
-
+                case .game(let gameId):
+                    if let user = authManager.currentUser {
+                        GameView(gameId: gameId, currentUserId: user.id)
+                    } else {
+                        Text("⚠️ User not loaded")
+                    }
+                case .botGame:
+                    BotGameView()
                 // ✅ Onboarding steps preserved
                 case .onboardingOpeningMove: OpeningMoveView(path: $path, onboardingData: $onboardingData)
                 case .onboardingCafeStyle: CafeStyleView(path: $path, onboardingData: $onboardingData)
@@ -187,3 +194,4 @@ struct ContentView: View {
         }
     }
 }
+
